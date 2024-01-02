@@ -1,0 +1,16 @@
+{
+  "name": "statuscode-karuta",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "rin <strawberinmilk@gmail.com>",
+  "license": "MIT",
+  "engines": {
+		"node": "20.10.0",
+    "npm": "10.2.5",
+    "yarn": "1.22.21"
+	},
+  "scripts": {
+    "build": "cd ./frontend && yarn install && yarn build --emptyOutDir && cd ../backend && yarn install && yarn build",
+    "start": "node backend/dist/main.js"
+  }
+}
