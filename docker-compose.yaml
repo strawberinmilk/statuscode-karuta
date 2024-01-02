@@ -1,0 +1,61 @@
+version: '3.7'
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: ./backend.Dockerfile
+    ports:
+      - 3000:3000
+    restart: always
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    tty: true
+    depends_on:
+      - postgres
+    command:
+      sh -c "yarn run start:dev"
+    logging:
+      driver: json-file
+
+  frontend:
+    build:
+      context: .
+      dockerfile: ./frontend.Dockerfile
+    ports:
+      - 5173:5173
+    restart: always
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    tty: true
+    command:
+      sh -c "yarn dev --host"
+    logging:
+      driver: json-file
+
+  nginx:
+    image: nginx
+    container_name: nginx-container
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx_log:/log
+    depends_on:
+      - frontend
+      - backend
+
+  postgres:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    restart: always
+    volumes:
+      - ./db/postgres/init.d:/docker-entrypoint-initdb.d
+      - ./db/postgres/data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
