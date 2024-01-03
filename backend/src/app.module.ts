@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
+import { HogeModule } from './apis/hoge/hoge.module';
 
 @Module({
   imports: [
@@ -13,6 +14,7 @@ import { join } from 'path';
       },
       exclude: ['/api*'],
     }),
+    HogeModule,
   ],
   controllers: [AppController],
   providers: [AppService],
