@@ -9,6 +9,6 @@ RUN apk add yarn
 
 COPY ./backend/package.json ./
 RUN yarn install
-RUN yarn add @nestjs/cli
+# RUN yarn add @nestjs/cli
 
 COPY ./backend/* ./
