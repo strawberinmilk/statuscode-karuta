@@ -4,6 +4,7 @@ import { AppService } from './app.service';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { HogeModule } from './apis/hoge/hoge.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { HogeModule } from './apis/hoge/hoge.module';
       },
       exclude: ['/api*'],
     }),
+    TypeOrmModule.forRoot({ ...require('../ormconfig') }),
     HogeModule,
   ],
   controllers: [AppController],

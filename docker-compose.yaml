@@ -17,6 +17,11 @@ services:
       sh -c "yarn run start:dev"
     logging:
       driver: json-file
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_HOST: ${POSTGRES_HOST}
 
   frontend:
     build:
