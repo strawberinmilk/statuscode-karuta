@@ -5,14 +5,17 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import { IsInt, IsString } from 'class-validator';
 
 @Entity()
 export class Sample {
   @PrimaryGeneratedColumn()
+  @IsInt()
   readonly id: number;
 
   @Column()
-  body: string;
+  @IsString()
+  text: string;
 
   @CreateDateColumn()
   readonly createdAt?: Date;

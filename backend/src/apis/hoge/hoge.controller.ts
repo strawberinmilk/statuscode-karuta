@@ -1,5 +1,6 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get, Post, Body, ValidationPipe } from '@nestjs/common';
 import { HogeService } from './hoge.service';
+import { CreateSampleDto } from 'src/db/sample/sample.dto';
 
 @Controller('api/hoge')
 export class HogeController {
@@ -9,7 +10,7 @@ export class HogeController {
     return await this.hogeService.get();
   }
   @Post()
-  async post(@Body() input) {
+  async post(@Body(new ValidationPipe()) input: CreateSampleDto) {
     return await this.hogeService.post(input);
   }
 }

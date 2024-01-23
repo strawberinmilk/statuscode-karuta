@@ -1,5 +1,5 @@
 require('dotenv').config({ path: '../.env' });
-console.log(process.env.POSTGRES_USER)
+console.log(process.env.POSTGRES_USER);
 module.exports = {
   type: 'postgres',
   host: process.env.POSTGRES_HOST,
@@ -7,7 +7,7 @@ module.exports = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  entities: ['dist/db/entities/*.entity.js'],
+  entities: ['dist/db/*/*.entity.js'],
   logging: true,
   synchronize: true,
 };
