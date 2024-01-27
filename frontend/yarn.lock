@@ -67,6 +67,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ctrl/tinycolor@npm:^3.4.1":
+  version: 3.6.1
+  resolution: "@ctrl/tinycolor@npm:3.6.1"
+  checksum: cefec6fcaaa3eb8ddf193f981e097dccf63b97b93b1e861cb18c645654824c831a568f444996e15ee509f255658ed82fba11c5365494a6e25b9b12ac454099e0
+  languageName: node
+  linkType: hard
+
+"@element-plus/icons-vue@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "@element-plus/icons-vue@npm:2.3.1"
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: 87d3400464d15294d850c354837b670c4c619aa7e0724de0b441c7de51fdc18d55e534338e92d5f6b30bce464da8593b8837d433e9eff9888ca21093de9fb703
+  languageName: node
+  linkType: hard
+
 "@esbuild/aix-ppc64@npm:0.19.11":
   version: 0.19.11
   resolution: "@esbuild/aix-ppc64@npm:0.19.11"
@@ -270,6 +286,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@floating-ui/core@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "@floating-ui/core@npm:1.6.0"
+  dependencies:
+    "@floating-ui/utils": ^0.2.1
+  checksum: 2e25c53b0c124c5c9577972f8ae21d081f2f7895e6695836a53074463e8c65b47722744d6d2b5a993164936da006a268bcfe87fe68fd24dc235b1cb86bed3127
+  languageName: node
+  linkType: hard
+
+"@floating-ui/dom@npm:^1.0.1":
+  version: 1.6.0
+  resolution: "@floating-ui/dom@npm:1.6.0"
+  dependencies:
+    "@floating-ui/core": ^1.6.0
+    "@floating-ui/utils": ^0.2.1
+  checksum: 6bbb67f9241f4e07030cd564e8079dbd8b692805e94d54db63b124853318a901a5df1e0b950068e416fa7b868345d165017ec0c19c486560729d8ac856b4bd25
+  languageName: node
+  linkType: hard
+
+"@floating-ui/utils@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "@floating-ui/utils@npm:0.2.1"
+  checksum: 9ed4380653c7c217cd6f66ae51f20fdce433730dbc77f95b5abfb5a808f5fdb029c6ae249b4e0490a816f2453aa6e586d9a873cd157fdba4690f65628efc6e06
+  languageName: node
+  linkType: hard
+
 "@humanwhocodes/config-array@npm:^0.11.13":
   version: 0.11.13
   resolution: "@humanwhocodes/config-array@npm:0.11.13"
@@ -376,6 +418,13 @@ __metadata:
   version: 0.1.0
   resolution: "@pkgr/core@npm:0.1.0"
   checksum: eeff0e0e517b1ed10eb4c1a8971413a8349bbfdab727dbe7d4085fd94eab95f0c3beb51b9245fef30562849d2a7a119e07ca48c343c8c4ec4e64ee289f50fe5e
+  languageName: node
+  linkType: hard
+
+"@popperjs/core@npm:@sxzz/popperjs-es@^2.11.7":
+  version: 2.11.7
+  resolution: "@sxzz/popperjs-es@npm:2.11.7"
+  checksum: 109b6569b75196db798da22d8e23bdf5c395ea46633c68eebdbcc59f39cd1df67dc0cf98ae06e0edf668e62d0aff87b9858d3b305dcb49524b724c629d2ea8c1
   languageName: node
   linkType: hard
 
@@ -500,6 +549,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash-es@npm:^4.17.6":
+  version: 4.17.12
+  resolution: "@types/lodash-es@npm:4.17.12"
+  dependencies:
+    "@types/lodash": "*"
+  checksum: 990a99e2243bebe9505cb5ad19fbc172beb4a8e00f9075c99fc06c46c2801ffdb40bc2867271cf580d5f48994fc9fb076ec92cd60a20e621603bf22114e5b077
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:*, @types/lodash@npm:^4.14.182":
+  version: 4.14.202
+  resolution: "@types/lodash@npm:4.14.202"
+  checksum: a91acf3564a568c6f199912f3eb2c76c99c5a0d7e219394294213b3f2d54f672619f0fde4da22b29dc5d4c31457cd799acc2e5cb6bd90f9af04a1578483b6ff7
+  languageName: node
+  linkType: hard
+
 "@types/node@npm:^18.19.3":
   version: 18.19.4
   resolution: "@types/node@npm:18.19.4"
@@ -520,6 +585,13 @@ __metadata:
   version: 7.5.6
   resolution: "@types/semver@npm:7.5.6"
   checksum: 563a0120ec0efcc326567db2ed920d5d98346f3638b6324ea6b50222b96f02a8add3c51a916b6897b51523aad8ac227d21d3dcf8913559f1bfc6c15b14d23037
+  languageName: node
+  linkType: hard
+
+"@types/web-bluetooth@npm:^0.0.16":
+  version: 0.0.16
+  resolution: "@types/web-bluetooth@npm:0.0.16"
+  checksum: f68a630d062202a25c46d48686ebae1cf429dc70b4578fcf13b8357b2db63e4aedfb6f6d752bd388366be46ebd19c1c9de45f8a15c2631bb79e904fdfc454f94
   languageName: node
   linkType: hard
 
@@ -857,6 +929,34 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@vueuse/core@npm:^9.1.0":
+  version: 9.13.0
+  resolution: "@vueuse/core@npm:9.13.0"
+  dependencies:
+    "@types/web-bluetooth": ^0.0.16
+    "@vueuse/metadata": 9.13.0
+    "@vueuse/shared": 9.13.0
+    vue-demi: "*"
+  checksum: 2b19d8ec4305f6c65650813c0fa9c15af6b322fc253ad656eb1c4bc8d7617a2ddd46a46d7ea359c4cdc5a5724aa5fc152fa7a3816ed6ebeaec4f7e58defb7153
+  languageName: node
+  linkType: hard
+
+"@vueuse/metadata@npm:9.13.0":
+  version: 9.13.0
+  resolution: "@vueuse/metadata@npm:9.13.0"
+  checksum: 91e137bf2fb1406587b523edae26b58b315d3a59797c9f2ed5dde9cb707026aa740b86da5955ea7f9662a93ce92249d0b3af763c65449b4a843bbd0725eb67f6
+  languageName: node
+  linkType: hard
+
+"@vueuse/shared@npm:9.13.0":
+  version: 9.13.0
+  resolution: "@vueuse/shared@npm:9.13.0"
+  dependencies:
+    vue-demi: "*"
+  checksum: e53e7312bdd2030b7970afcf4d3dc3f9a47f7721a92ccb51c364d23246233cb54758f7ddacbdb9ac63d1e86ec82e97d06cb53b05a4b8d43be877d16ab61dd9bb
+  languageName: node
+  linkType: hard
+
 "abbrev@npm:^2.0.0":
   version: 2.0.0
   resolution: "abbrev@npm:2.0.0"
@@ -963,6 +1063,13 @@ __metadata:
   version: 2.1.0
   resolution: "array-union@npm:2.1.0"
   checksum: 5bee12395cba82da674931df6d0fea23c4aa4660cb3b338ced9f828782a65caa232573e6bf3968f23e0c5eb301764a382cef2f128b170a9dc59de0e36c39f98d
+  languageName: node
+  linkType: hard
+
+"async-validator@npm:^4.2.5":
+  version: 4.2.5
+  resolution: "async-validator@npm:4.2.5"
+  checksum: 3e3d891a2e21497c8a646afeb7b1e6ed5f98de5f58ce3600732080f327cb581e65d8d8ff184273f1461dc84105d49f5cf31422a67ce50e787967c306838b6f40
   languageName: node
   linkType: hard
 
@@ -1170,6 +1277,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dayjs@npm:^1.11.3":
+  version: 1.11.10
+  resolution: "dayjs@npm:1.11.10"
+  checksum: a6b5a3813b8884f5cd557e2e6b7fa569f4c5d0c97aca9558e38534af4f2d60daafd3ff8c2000fed3435cfcec9e805bcebd99f90130c6d1c5ef524084ced588c4
+  languageName: node
+  linkType: hard
+
 "de-indent@npm:^1.0.2":
   version: 1.0.2
   resolution: "de-indent@npm:1.0.2"
@@ -1225,6 +1339,31 @@ __metadata:
   version: 0.2.0
   resolution: "eastasianwidth@npm:0.2.0"
   checksum: 7d00d7cd8e49b9afa762a813faac332dee781932d6f2c848dc348939c4253f1d4564341b7af1d041853bc3f32c2ef141b58e0a4d9862c17a7f08f68df1e0f1ed
+  languageName: node
+  linkType: hard
+
+"element-plus@npm:^2.5.3":
+  version: 2.5.3
+  resolution: "element-plus@npm:2.5.3"
+  dependencies:
+    "@ctrl/tinycolor": ^3.4.1
+    "@element-plus/icons-vue": ^2.3.1
+    "@floating-ui/dom": ^1.0.1
+    "@popperjs/core": "npm:@sxzz/popperjs-es@^2.11.7"
+    "@types/lodash": ^4.14.182
+    "@types/lodash-es": ^4.17.6
+    "@vueuse/core": ^9.1.0
+    async-validator: ^4.2.5
+    dayjs: ^1.11.3
+    escape-html: ^1.0.3
+    lodash: ^4.17.21
+    lodash-es: ^4.17.21
+    lodash-unified: ^1.0.2
+    memoize-one: ^6.0.0
+    normalize-wheel-es: ^1.2.0
+  peerDependencies:
+    vue: ^3.2.0
+  checksum: 65b24b593c5824269ff186e0f572fd808704bbbd3834c39aeeb9a45d3b576b4fed7418a932f954f4ecb4db1470d5d31a5f733057337f2b65163576b46211754d
   languageName: node
   linkType: hard
 
@@ -1358,6 +1497,13 @@ __metadata:
   bin:
     esbuild: bin/esbuild
   checksum: ae949a796d1d06b55275ae7491ce137857468f69a93d8cc9c0943d2a701ac54e14dbb250a2ba56f2ad98283669578f1ec3bd85a4681910a5ff29a2470c3bd62c
+  languageName: node
+  linkType: hard
+
+"escape-html@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "escape-html@npm:1.0.3"
+  checksum: 6213ca9ae00d0ab8bccb6d8d4e0a98e76237b2410302cf7df70aaa6591d509a2a37ce8998008cbecae8fc8ffaadf3fb0229535e6a145f3ce0b211d060decbb24
   languageName: node
   linkType: hard
 
@@ -2107,6 +2253,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash-es@npm:^4.17.21":
+  version: 4.17.21
+  resolution: "lodash-es@npm:4.17.21"
+  checksum: 05cbffad6e2adbb331a4e16fbd826e7faee403a1a04873b82b42c0f22090f280839f85b95393f487c1303c8a3d2a010048bf06151a6cbe03eee4d388fb0a12d2
+  languageName: node
+  linkType: hard
+
+"lodash-unified@npm:^1.0.2":
+  version: 1.0.3
+  resolution: "lodash-unified@npm:1.0.3"
+  peerDependencies:
+    "@types/lodash-es": "*"
+    lodash: "*"
+    lodash-es: "*"
+  checksum: 0bac8ce8940852c2b620e2b2be28de74b031b1e0b25e21c863fdfd85d35807d3ca3486ec1ca2fa5bd58a0ae619a4ead4ec60a87849ce9e446b3528fd85380c53
+  languageName: node
+  linkType: hard
+
 "lodash.merge@npm:^4.6.2":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
@@ -2169,6 +2333,13 @@ __metadata:
     promise-retry: ^2.0.1
     ssri: ^10.0.0
   checksum: 7c7a6d381ce919dd83af398b66459a10e2fe8f4504f340d1d090d3fa3d1b0c93750220e1d898114c64467223504bd258612ba83efbc16f31b075cd56de24b4af
+  languageName: node
+  linkType: hard
+
+"memoize-one@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "memoize-one@npm:6.0.0"
+  checksum: f185ea69f7cceae5d1cb596266dcffccf545e8e7b4106ec6aa93b71ab9d16460dd118ac8b12982c55f6d6322fcc1485de139df07eacffaae94888b9b3ad7675f
   languageName: node
   linkType: hard
 
@@ -2400,6 +2571,13 @@ __metadata:
     semver: ^7.3.5
     validate-npm-package-license: ^3.0.4
   checksum: 741211a4354ba6d618caffa98f64e0e5ec9e5575bf3aefe47f4b68e662d65f9ba1b6b2d10640c16254763ed0879288155566138b5ffe384172352f6e969c1752
+  languageName: node
+  linkType: hard
+
+"normalize-wheel-es@npm:^1.2.0":
+  version: 1.2.0
+  resolution: "normalize-wheel-es@npm:1.2.0"
+  checksum: 59595255ea5a74b1cf69c83e986da995434a82012cbe1d1fcc53fc01ff9c2b347a6733eee9bafe5f713a14c2a19e5d04485ccb591a5106bb3dcc199bf7ab4aef
   languageName: node
   linkType: hard
 
@@ -2908,6 +3086,7 @@ __metadata:
     "@vue/eslint-config-typescript": ^12.0.0
     "@vue/tsconfig": ^0.5.0
     axios: ^1.6.3
+    element-plus: ^2.5.3
     eslint: ^8.49.0
     eslint-plugin-vue: ^9.17.0
     npm-run-all2: ^6.1.1
@@ -3186,6 +3365,22 @@ __metadata:
   bin:
     vite: bin/vite.js
   checksum: a1c96be1dc8bafb981c0874813a6b783ee9c4cd235188d7dc746133972d8992fe85111b7402365fee698ffcb626cd31b39bf2f2523140e50b07b81ce3c0139d1
+  languageName: node
+  linkType: hard
+
+"vue-demi@npm:*":
+  version: 0.14.6
+  resolution: "vue-demi@npm:0.14.6"
+  peerDependencies:
+    "@vue/composition-api": ^1.0.0-rc.1
+    vue: ^3.0.0-0 || ^2.6.0
+  peerDependenciesMeta:
+    "@vue/composition-api":
+      optional: true
+  bin:
+    vue-demi-fix: bin/vue-demi-fix.js
+    vue-demi-switch: bin/vue-demi-switch.js
+  checksum: 424b1f340d5111fc4d4a0f8042c14ae836ba983bc968773a6d955d6846202d7e6f951993ac1525be8732b0cfe0c81d94ab88f427c97bfa86ead08db06491279b
   languageName: node
   linkType: hard
 
