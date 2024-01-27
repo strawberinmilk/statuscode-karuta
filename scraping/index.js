@@ -11,6 +11,7 @@ import fs from 'fs';
 
   const data = [];
   let text = '';
+  let akaneNum = 0;
   for (let i = 0; i < titles.length; i++) {
     const status = (
       await (await titles[i].getProperty('textContent')).jsonValue()
@@ -27,6 +28,9 @@ import fs from 'fs';
       statusCode,
       statusName,
       statusText,
+      statusCodeId: akaneNum++,
+      statusNameId: akaneNum++,
+      statusTextId: akaneNum++,
     });
     text += `{区切り}\n${statusCode}{区切り}\n${statusName}{区切り}\n${statusText}`;
     // console.log(status.replace(/\d{3}\s/, ''));
