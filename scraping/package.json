@@ -1,0 +1,10 @@
+{
+  "name": "scraping",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "license": "MIT",
+  "type": "module",
+  "dependencies": {
+    "puppeteer": "^21.7.0"
+  }
+}
