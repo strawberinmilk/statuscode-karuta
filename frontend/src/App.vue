@@ -1,76 +1,45 @@
-<script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <header>
-    <el-button>Default</el-button>
-  </header>
+  <div :id="$style.root">
+    <el-page-header :id="$style.header" :icon="null">
+      <template #title>
+        <router-link to="/">
+          Statuscode-karuta
+        </router-link>
+      </template>
 
-  <RouterView />
+      <template #content>
+        <span class="$style.pc">
+          <router-link :class="$style.header_link" to="/about">about(リザルト？)</router-link>
+          
+          <router-link :class="$style.header_link" to="/about">about(リザルト？)</router-link>
+        </span>
+      </template>
+
+    </el-page-header>
+
+    <RouterView />
+    <!-- <footer :id="$style.footer">©2023 rin;</footer> -->
+  </div>
 </template>
 
-<style scoped>
-header {
-  line-height: 1.5;
-  max-height: 100vh;
+<style lang="scss" module>
+#root {
+  height: 90vh;
+  margin: 0;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
+#header {
+  margin: 0;
+  padding: 0;
 }
 
-nav {
-  width: 100%;
-  font-size: 12px;
-  text-align: center;
-  margin-top: 2rem;
+.header_link {
+  color: #8b0a8b;
 }
 
-nav a.router-link-exact-active {
-  color: var(--color-text);
-}
+/* #footer {
+  position: relative;
+  bottom: 0;
+} */
 
-nav a.router-link-exact-active:hover {
-  background-color: transparent;
-}
-
-nav a {
-  display: inline-block;
-  padding: 0 1rem;
-  border-left: 1px solid var(--color-border);
-}
-
-nav a:first-of-type {
-  border: 0;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-
-  nav {
-    text-align: left;
-    margin-left: -1rem;
-    font-size: 1rem;
-
-    padding: 1rem 0;
-    margin-top: 1rem;
-  }
-}
 </style>
