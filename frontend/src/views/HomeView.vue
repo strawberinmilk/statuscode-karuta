@@ -1,7 +1,11 @@
 <template>
   <main>
-    <HomeLogo v-if="state.animationShow"/>
+    <HomeLogo v-if="state.animationShow" />
     Statuscode-karuta(HomeView)
+    <router-link to="/game/easy">easy</router-link>
+    <router-link to="/game/normal">normal</router-link>
+    <router-link to="/game/hard">hard</router-link>
+    <router-link to="/game/lunatic">lunatic</router-link>
   </main>
 </template>
 
@@ -9,13 +13,9 @@
 import { defineComponent } from 'vue'
 import Cookies from 'universal-cookie'
 import { reactive } from 'vue'
-import HomeLogo from '../components/HomeLogo.vue'
 
 export default defineComponent({
-  name: 'App',
-  components: {
-    HomeLogo
-  },
+  name: 'HomeView',
   setup() {
     const state = reactive({
       animationShow: true
@@ -38,7 +38,7 @@ export default defineComponent({
     }
 
     return {
-      state,
+      state
     }
   }
 })
