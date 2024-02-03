@@ -1,0 +1,569 @@
+[
+  {
+    "status": "100 Continue",
+    "statusCode": "100",
+    "statusName": "Continue",
+    "statusText": "これは暫定レスポンスで、その時点までのすべてに問題がなく、クライアントはリクエストを継続してよい、またもしリクエストが完了している場合はレスポンスを無視してよいことを示します。",
+    "statusCodeId": 0,
+    "statusNameId": 1,
+    "statusTextId": 2
+  },
+  {
+    "status": "101 Switching Protocols",
+    "statusCode": "101",
+    "statusName": "Switching Protocols",
+    "statusText": "このコードはクライアントからのUpgradeリクエストヘッダーのレスポンスとして送信され、サーバーはプロトコルを切り替えていることを示します。",
+    "statusCodeId": 3,
+    "statusNameId": 4,
+    "statusTextId": 5
+  },
+  {
+    "status": "102 Processing",
+    "statusCode": "102",
+    "statusName": "Processing",
+    "statusText": "このコードは、サーバーはリクエストを受け取って処理しているが、まだレスポンスを提供できないことを示します。",
+    "statusCodeId": 6,
+    "statusNameId": 7,
+    "statusTextId": 8
+  },
+  {
+    "status": "103 Early Hints",
+    "statusCode": "103",
+    "statusName": "Early Hints",
+    "statusText": "このステータスコードは主にLinkヘッダーとともに使用され、サーバーがリソースを準備している間、ユーザーエージェントがリソースの先読みを開始できるようにするためのものです。",
+    "statusCodeId": 9,
+    "statusNameId": 10,
+    "statusTextId": 11
+  },
+  {
+    "status": "200 OK",
+    "statusCode": "200",
+    "statusName": "OK",
+    "statusText": "リクエストが成功したことを示します。成功が意味することは、HTTPメソッドにより異なります。GET:リソースが読み込まれ、メッセージ本文で転送された。HEAD:メッセージ本文がなく、表現ヘッダーがレスポンスに含まれている。PUTまたはPOST:操作の結果を表すリソースがメッセージ本文で送信される。TRACE:メッセージ本文に、サーバーが受け取ったリクエストメッセージが含まれている。",
+    "statusCodeId": 12,
+    "statusNameId": 13,
+    "statusTextId": 14
+  },
+  {
+    "status": "201 Created",
+    "statusCode": "201",
+    "statusName": "Created",
+    "statusText": "リクエストは成功し、その結果新たなリソースが作成されたことを示します。これは一般的に、POSTリクエストや、一部のPUTリクエストを送信した後のレスポンスになります。",
+    "statusCodeId": 15,
+    "statusNameId": 16,
+    "statusTextId": 17
+  },
+  {
+    "status": "202 Accepted",
+    "statusCode": "202",
+    "statusName": "Accepted",
+    "statusText": "リクエストは受理されたが、まだ実行されていないことを示します。これはあいまいです。HTTPではリクエストを処理した結果を示す非同期なレスポンスを後から送信する方法がないためです。リクエストは別のプロセスかサーバーが処理する、またはバッチ処理する予定です。",
+    "statusCodeId": 18,
+    "statusNameId": 19,
+    "statusTextId": 20
+  },
+  {
+    "status": "203 Non-Authoritative Information",
+    "statusCode": "203",
+    "statusName": "Non-Authoritative Information",
+    "statusText": "このレスポンスコードは、返されるメタ情報のセットが生成元のサーバーから得られるセットと同一ではなく、ローカルまたは第三者の持つ複製から収集したことを表します。これは主に、他のリソースのミラーやバックアップを使用したときに使用されます。このような場合以外は、このステータスより200OKのほうが好ましいレスポンスです。",
+    "statusCodeId": 21,
+    "statusNameId": 22,
+    "statusTextId": 23
+  },
+  {
+    "status": "204 No Content",
+    "statusCode": "204",
+    "statusName": "No Content",
+    "statusText": "リクエストに対して送信するコンテンツはありませんが、ヘッダーは有用であることを示します。ユーザーエージェントはこのリソースに関するキャッシュ済みのヘッダーを、新たな内容に更新します。",
+    "statusCodeId": 24,
+    "statusNameId": 25,
+    "statusTextId": 26
+  },
+  {
+    "status": "205 Reset Content",
+    "statusCode": "205",
+    "statusName": "Reset Content",
+    "statusText": "ユーザーエージェントに対し、リクエストを送信した文書をリセットするよう伝達します。",
+    "statusCodeId": 27,
+    "statusNameId": 28,
+    "statusTextId": 29
+  },
+  {
+    "status": "206 Partial Content",
+    "statusCode": "206",
+    "statusName": "Partial Content",
+    "statusText": "このレスポンスコードは、クライアントがRangeヘッダーを送信し、リソースの一部だけをリクエストした時に使用されます。",
+    "statusCodeId": 30,
+    "statusNameId": 31,
+    "statusTextId": 32
+  },
+  {
+    "status": "207 Multi-Status",
+    "statusCode": "207",
+    "statusName": "Multi-Status",
+    "statusText": "複数のステータスコードがあてはまる状況で、複数のリソースに関する情報を伝えます。",
+    "statusCodeId": 33,
+    "statusNameId": 34,
+    "statusTextId": 35
+  },
+  {
+    "status": "208 Already Reported",
+    "statusCode": "208",
+    "statusName": "Already Reported",
+    "statusText": "同じコレクションに繰り返し複数のバインディングする内部メンバーを列挙することを避けるため、<dav:propstat>レスポンス要素の内部で使用します。",
+    "statusCodeId": 36,
+    "statusNameId": 37,
+    "statusTextId": 38
+  },
+  {
+    "status": "226 IM Used",
+    "statusCode": "226",
+    "statusName": "IM Used",
+    "statusText": "サーバーはリソースへのGETリクエストの処理を完了しており、レスポンスは現在のインスタンスに適用された1つ以上のinstancemanipulationの結果を表します。",
+    "statusCodeId": 39,
+    "statusNameId": 40,
+    "statusTextId": 41
+  },
+  {
+    "status": "300 Multiple Choice",
+    "statusCode": "300",
+    "statusName": "Multiple Choice",
+    "statusText": "リクエストに対して複数のレスポンスがあることを示します。ユーザーエージェントやユーザーは、それらからひとつを選択します。(複数のレスポンスからひとつを選ぶ方法は標準化されていませんが、選択肢へリンクするHTMLが推奨されており、それによってユーザーが選択することができます。)",
+    "statusCodeId": 42,
+    "statusNameId": 43,
+    "statusTextId": 44
+  },
+  {
+    "status": "301 Moved Permanently",
+    "statusCode": "301",
+    "statusName": "Moved Permanently",
+    "statusText": "リクエストされたリソースのURLが永遠に変更されたことを示します。レスポンスで新しいURLが与えられます。",
+    "statusCodeId": 45,
+    "statusNameId": 46,
+    "statusTextId": 47
+  },
+  {
+    "status": "302 Found",
+    "statusCode": "302",
+    "statusName": "Found",
+    "statusText": "このレスポンスコードは、リクエストされたリソースのURIが一時的に変更されたことを示します。URIは将来、さらに変更される可能性があります。従って、クライアントは将来のリクエストでも同じURIを使用するべきです。",
+    "statusCodeId": 48,
+    "statusNameId": 49,
+    "statusTextId": 50
+  },
+  {
+    "status": "303 See Other",
+    "statusCode": "303",
+    "statusName": "See Other",
+    "statusText": "サーバーはこのレスポンスを、リクエストされたリソースを別のURIでGETリクエストを使用して取得するようクライアントを誘導するために送信します。",
+    "statusCodeId": 51,
+    "statusNameId": 52,
+    "statusTextId": 53
+  },
+  {
+    "status": "304 Not Modified",
+    "statusCode": "304",
+    "statusName": "Not Modified",
+    "statusText": "これはキャッシュ用に使用します。このレスポンスコードはクライアントに対して、レスポンスは変更されていないことを示します。よって、クライアントはキャッシュ済みのレスポンスを使い続けます。",
+    "statusCodeId": 54,
+    "statusNameId": 55,
+    "statusTextId": 56
+  },
+  {
+    "status": "305 Use Proxy",
+    "statusCode": "305",
+    "statusName": "Use Proxy",
+    "statusText": "これは旧バージョンのHTTP仕様書で、リクエストされたレスポンスはプロキシーからアクセスしなければならないことを示していました。プロキシーのインバンド設定に関するセキュリティの懸念により、このレスポンスコードは非推奨になりました。",
+    "statusCodeId": 57,
+    "statusNameId": 58,
+    "statusTextId": 59
+  },
+  {
+    "status": "306 unused",
+    "statusCode": "306",
+    "statusName": "unused",
+    "statusText": "このレスポンスコードはもう使用されず、予約済みです。HTTP/1.1仕様書の旧バージョンでは使用されていました。",
+    "statusCodeId": 60,
+    "statusNameId": 61,
+    "statusTextId": 62
+  },
+  {
+    "status": "307 Temporary Redirect",
+    "statusCode": "307",
+    "statusName": "Temporary Redirect",
+    "statusText": "サーバーはこのレスポンスを、リクエストされたリソースを別のURIで、元のリクエストと同じメソッドを使用して取得するようクライアントを誘導するために送信します。これは302FoundHTTPレスポンスコードと同じ意味を持ちますが、ユーザーエージェントは使用するHTTPメソッドを変更してはならない点が異なります。始めのリクエストでPOSTを用いた場合は、次のリクエストでもPOSTを使用しなければなりません。",
+    "statusCodeId": 63,
+    "statusNameId": 64,
+    "statusTextId": 65
+  },
+  {
+    "status": "308 Permanent Redirect",
+    "statusCode": "308",
+    "statusName": "Permanent Redirect",
+    "statusText": "これは、リソースがHTTPのLocation:レスポンスヘッダーで指定した別のURIへ永続的に置かれていることを示します。これは301MovedPermanentlyHTTPレスポンスコードと同じ意味を持ちますが、ユーザーエージェントは使用するHTTPメソッドを変更してはならない点が異なります。始めのリクエストでPOSTを用いた場合は、次のリクエストでもPOSTを使用しなければなりません。",
+    "statusCodeId": 66,
+    "statusNameId": 67,
+    "statusTextId": 68
+  },
+  {
+    "status": "400 Bad Request",
+    "statusCode": "400",
+    "statusName": "Bad Request",
+    "statusText": "構文が無効であるためサーバーがリクエストを理解できないことを示します。",
+    "statusCodeId": 69,
+    "statusNameId": 70,
+    "statusTextId": 71
+  },
+  {
+    "status": "401 Unauthorized",
+    "statusCode": "401",
+    "statusName": "Unauthorized",
+    "statusText": "HTTP標準では\"unauthorized\"(不許可)と定義されていますが、意味的にはこのレスポンスは\"unauthenticated\"(未認証)です。つまり、クライアントはリクエストされたレスポンスを得るためには認証を受けなければなりません。",
+    "statusCodeId": 72,
+    "statusNameId": 73,
+    "statusTextId": 74
+  },
+  {
+    "status": "402 Payment Required",
+    "statusCode": "402",
+    "statusName": "Payment Required",
+    "statusText": "このレスポンスコードは、将来のために予約されています。このコードは当初、デジタル決済システムで使用するために作成されましたが、ごく稀にしか使用されておらず、標準的な慣例はありません。",
+    "statusCodeId": 75,
+    "statusNameId": 76,
+    "statusTextId": 77
+  },
+  {
+    "status": "403 Forbidden",
+    "statusCode": "403",
+    "statusName": "Forbidden",
+    "statusText": "認証されていないなどの理由でクライアントにコンテンツのアクセス権がなく、サーバーが適切なレスポンスの返信を拒否していることを示します。401Unauthorizedとは異なり、クライアントのIDがサーバーに知られています。",
+    "statusCodeId": 78,
+    "statusNameId": 79,
+    "statusTextId": 80
+  },
+  {
+    "status": "404 Not Found",
+    "statusCode": "404",
+    "statusName": "Not Found",
+    "statusText": "サーバーがリクエストされたリソースを発見できないことを示します。ブラウザーでは、これはURLが解釈できなかったことを意味します。APIでは、これは通信先が有効であるものの、リソース自体が存在しないことを意味することがあります。サーバーは認証されていないクライアントからリソースの存在を隠すために、403の代わりにこのレスポンスを返すことがあります。このレスポンスコードはウェブで頻繁に見られるため、おそらくもっとも有名なコードでしょう。",
+    "statusCodeId": 81,
+    "statusNameId": 82,
+    "statusTextId": 83
+  },
+  {
+    "status": "405 Method Not Allowed",
+    "statusCode": "405",
+    "statusName": "Method Not Allowed",
+    "statusText": "サーバーがリクエストメソッドを理解しているものの、無効にされており使用することができません。例えば、APIがリソースをDELETEすることを禁止できます。GETおよびHEADの2つは必須で、無効にすることができず、このエラーコードを返してはいけません。",
+    "statusCodeId": 84,
+    "statusNameId": 85,
+    "statusTextId": 86
+  },
+  {
+    "status": "406 Not Acceptable",
+    "statusCode": "406",
+    "statusName": "Not Acceptable",
+    "statusText": "このレスポンスは、ウェブサーバーがサーバー駆動型コンテンツネゴシエーション(en-US)を行った結果、ユーザーエージェントから与えられた条件に合うコンテンツが見つからない場合に送信されます。",
+    "statusCodeId": 87,
+    "statusNameId": 88,
+    "statusTextId": 89
+  },
+  {
+    "status": "407 Proxy Authentication Required",
+    "statusCode": "407",
+    "statusName": "Proxy Authentication Required",
+    "statusText": "これは401Unauthorizedと似ていますが、プロキシーサーバーが認証を要求している点が異なります。",
+    "statusCodeId": 90,
+    "statusNameId": 91,
+    "statusTextId": 92
+  },
+  {
+    "status": "408 Request Timeout",
+    "statusCode": "408",
+    "statusName": "Request Timeout",
+    "statusText": "このレスポンスはクライアントが以前にリクエストを行っていない、アイドル状態の接続において一部のサーバーが送信します。サーバーが使用していない接続の終了を望んでいることを示します。このレスポンスはChrome、Firefox27以降、IE9など、閲覧を高速化するためのHTTP事前接続機能を使用する一部のブラウザーでよく使用します。また、一部のサーバーはこのメッセージを送らずに接続を閉じることに注意してください。",
+    "statusCodeId": 93,
+    "statusNameId": 94,
+    "statusTextId": 95
+  },
+  {
+    "status": "409 Conflict",
+    "statusCode": "409",
+    "statusName": "Conflict",
+    "statusText": "このレスポンスは、リクエストがサーバーの現在の状態と矛盾する場合に送られるでしょう。",
+    "statusCodeId": 96,
+    "statusNameId": 97,
+    "statusTextId": 98
+  },
+  {
+    "status": "410 Gone",
+    "statusCode": "410",
+    "statusName": "Gone",
+    "statusText": "このレスポンスは、リクエストされたコンテンツがサーバーから永久に削除され、転送先アドレスがない場合に送られます。クライアントはこのリソースへのキャッシュやリンクを削除することが期待されます。HTTP仕様書ではこのコードを「期間限定のプロモーションサービス」に使用することを意図しています。APIはこのステータスコードの場合、削除されたリソースを無理に示そうとするべきではありません。",
+    "statusCodeId": 99,
+    "statusNameId": 100,
+    "statusTextId": 101
+  },
+  {
+    "status": "411 Length Required",
+    "statusCode": "411",
+    "statusName": "Length Required",
+    "statusText": "サーバーがContent-Lengthヘッダーフィールドを要求しているが、リクエストで定義されていないために、サーバーがリクエストを拒否したことを示します。",
+    "statusCodeId": 102,
+    "statusNameId": 103,
+    "statusTextId": 104
+  },
+  {
+    "status": "412 Precondition Failed",
+    "statusCode": "412",
+    "statusName": "Precondition Failed",
+    "statusText": "サーバー側で適合しない前提条件が、クライアント側のヘッダーに含まれていることを示します。",
+    "statusCodeId": 105,
+    "statusNameId": 106,
+    "statusTextId": 107
+  },
+  {
+    "status": "413 Payload Too Large",
+    "statusCode": "413",
+    "statusName": "Payload Too Large",
+    "statusText": "リクエストの本体がサーバーで定めている上限を超えていることを示します。サーバーは接続を閉じるか、Retry-Afterヘッダーフィールドを返します。",
+    "statusCodeId": 108,
+    "statusNameId": 109,
+    "statusTextId": 110
+  },
+  {
+    "status": "414 URI Too Long",
+    "statusCode": "414",
+    "statusName": "URI Too Long",
+    "statusText": "クライアントがリクエストしたURIが、サーバーで扱える長さを超えていることを示します。",
+    "statusCodeId": 111,
+    "statusNameId": 112,
+    "statusTextId": 113
+  },
+  {
+    "status": "415 Unsupported Media Type",
+    "statusCode": "415",
+    "statusName": "Unsupported Media Type",
+    "statusText": "リクエストされたデータのメディア形式をサーバーが対応しておらず、サーバーはリクエストを拒否したことを示します。",
+    "statusCodeId": 114,
+    "statusNameId": 115,
+    "statusTextId": 116
+  },
+  {
+    "status": "416 Range Not Satisfiable",
+    "statusCode": "416",
+    "statusName": "Range Not Satisfiable",
+    "statusText": "リクエスト内のRangeヘッダーフィールドで指定された範囲を満たすことができないことを示します。指定した範囲が、目的のURIのデータサイズを超えている可能性があります。",
+    "statusCodeId": 117,
+    "statusNameId": 118,
+    "statusTextId": 119
+  },
+  {
+    "status": "417 Expectation Failed",
+    "statusCode": "417",
+    "statusName": "Expectation Failed",
+    "statusText": "このレスポンスコードは、Expectリクエストヘッダーで指定された内容がサーバー側と適合しないことを示します。",
+    "statusCodeId": 120,
+    "statusNameId": 121,
+    "statusTextId": 122
+  },
+  {
+    "status": "418 I'm a teapot",
+    "statusCode": "418",
+    "statusName": "I'm a teapot",
+    "statusText": "サーバーは、ティーポットでコーヒーを淹れようとする試みを拒否します。",
+    "statusCodeId": 123,
+    "statusNameId": 124,
+    "statusTextId": 125
+  },
+  {
+    "status": "421 Misdirected Request",
+    "statusCode": "421",
+    "statusName": "Misdirected Request",
+    "statusText": "リクエストは、レスポンスを生成できないサーバーに送られました。リクエストのURIに含まれているスキームや権限の組み合わせに対してレスポンスを生成するよう設定されていないサーバーが、このコードを送ることがあります。",
+    "statusCodeId": 126,
+    "statusNameId": 127,
+    "statusTextId": 128
+  },
+  {
+    "status": "422 Unprocessable Entity",
+    "statusCode": "422",
+    "statusName": "Unprocessable Entity",
+    "statusText": "リクエストは適正ですが、意味が誤っているために従うことができません。",
+    "statusCodeId": 129,
+    "statusNameId": 130,
+    "statusTextId": 131
+  },
+  {
+    "status": "423 Locked",
+    "statusCode": "423",
+    "statusName": "Locked",
+    "statusText": "アクセス中のリソースはロックされています。",
+    "statusCodeId": 132,
+    "statusNameId": 133,
+    "statusTextId": 134
+  },
+  {
+    "status": "424 Failed Dependency",
+    "statusCode": "424",
+    "statusName": "Failed Dependency",
+    "statusText": "前のリクエストが失敗したため、このリクエストも失敗しました。",
+    "statusCodeId": 135,
+    "statusNameId": 136,
+    "statusTextId": 137
+  },
+  {
+    "status": "425 Too Early",
+    "statusCode": "425",
+    "statusName": "Too Early",
+    "statusText": "サーバーが、繰り返される可能性のあるリクエストを処理するリスクを望まないことを示します。",
+    "statusCodeId": 138,
+    "statusNameId": 139,
+    "statusTextId": 140
+  },
+  {
+    "status": "426 Upgrade Required",
+    "statusCode": "426",
+    "statusName": "Upgrade Required",
+    "statusText": "サーバーは現在のプロトコルを使用したリクエストの実行を拒否しましたが、クライアントが別のプロトコルにアップグレードした後は受け入れることができます。サーバーは必要なプロトコルを示すために、426のレスポンスでUpgradeヘッダーフィールドを送信しなければなりません。",
+    "statusCodeId": 141,
+    "statusNameId": 142,
+    "statusTextId": 143
+  },
+  {
+    "status": "428 Precondition Required",
+    "statusCode": "428",
+    "statusName": "Precondition Required",
+    "statusText": "オリジンサーバーはリクエストが条件付きになることを必要としています。このレスポンスは「ロストアップデート問題」(クライアントがリソースの状態を取得して変更およびサーバーに送信している間に、第三者がサーバーの状態を変更して競合が発生すること)を防ごうとするものです。",
+    "statusCodeId": 144,
+    "statusNameId": 145,
+    "statusTextId": 146
+  },
+  {
+    "status": "429 Too Many Requests",
+    "statusCode": "429",
+    "statusName": "Too Many Requests",
+    "statusText": "ユーザーは一定の時間内に大量のリクエストを送信しました(\"レート制限\")。",
+    "statusCodeId": 147,
+    "statusNameId": 148,
+    "statusTextId": 149
+  },
+  {
+    "status": "431 Request Header Fields Too Large",
+    "statusCode": "431",
+    "statusName": "Request Header Fields Too Large",
+    "statusText": "ヘッダーフィールドが大きすぎるため、サーバーはリクエストの処理を望みません。ヘッダーフィールドのサイズを削減した後に、リクエストを再送信できます。",
+    "statusCodeId": 150,
+    "statusNameId": 151,
+    "statusTextId": 152
+  },
+  {
+    "status": "451 Unavailable For Legal Reasons",
+    "statusCode": "451",
+    "statusName": "Unavailable For Legal Reasons",
+    "statusText": "ユーザーエージェントが政府によって検閲されたウェブページなど、違法なリソースをリクエストしています。",
+    "statusCodeId": 153,
+    "statusNameId": 154,
+    "statusTextId": 155
+  },
+  {
+    "status": "500 Internal Server Error",
+    "statusCode": "500",
+    "statusName": "Internal Server Error",
+    "statusText": "サーバー側で処理方法がわからない事態が発生したことを示します。",
+    "statusCodeId": 156,
+    "statusNameId": 157,
+    "statusTextId": 158
+  },
+  {
+    "status": "501 Not Implemented",
+    "statusCode": "501",
+    "statusName": "Not Implemented",
+    "statusText": "リクエストメソッドをサーバーが対応しておらず、扱えないことを示します。サーバーが対応しなければならない(従って、このコードを返してはならない)メソッドはGETとHEADだけです。",
+    "statusCodeId": 159,
+    "statusNameId": 160,
+    "statusTextId": 161
+  },
+  {
+    "status": "502 Bad Gateway",
+    "statusCode": "502",
+    "statusName": "Bad Gateway",
+    "statusText": "このエラーレスポンスは、リクエストの処理に必要なレスポンスを受け取るゲートウェイとして動作するサーバーが無効なレスポンスを受け取ったことを示します。",
+    "statusCodeId": 162,
+    "statusNameId": 163,
+    "statusTextId": 164
+  },
+  {
+    "status": "503 Service Unavailable",
+    "statusCode": "503",
+    "statusName": "Service Unavailable",
+    "statusText": "サーバーはリクエストを処理する準備ができていないことを示します。一般的な原因は、サーバーがメンテナンスや過負荷でダウンしていることです。このレスポンスとともに問題について説明する、ユーザーにわかりやすいページを送信するべきであることに注意してください。このレスポンスは一時的な状況について使用するものであり、また可能であれば、サービスが復旧する前にHTTPのRetry-Afterヘッダーに予定時刻を含めてください。また、これら一時的な状況のレスポンスは通常キャッシュされるべきではないことから、ウェブ管理者はこのレスポンスとともに送られるキャッシュ関連のヘッダーに注意しなければなりません。",
+    "statusCodeId": 165,
+    "statusNameId": 166,
+    "statusTextId": 167
+  },
+  {
+    "status": "504 Gateway Timeout",
+    "statusCode": "504",
+    "statusName": "Gateway Timeout",
+    "statusText": "このエラーレスポンスは、ゲートウェイとして動作するサーバーが時間内にレスポンスを得られない場合に送られます。",
+    "statusCodeId": 168,
+    "statusNameId": 169,
+    "statusTextId": 170
+  },
+  {
+    "status": "505 HTTP Version Not Supported",
+    "statusCode": "505",
+    "statusName": "HTTP Version Not Supported",
+    "statusText": "リクエストで使用したHTTPのバージョンにサーバーが対応していないことを示します。",
+    "statusCodeId": 171,
+    "statusNameId": 172,
+    "statusTextId": 173
+  },
+  {
+    "status": "506 Variant Also Negotiates",
+    "statusCode": "506",
+    "statusName": "Variant Also Negotiates",
+    "statusText": "サーバーに内部構成エラーがあることを示します。選択したバリアントリソースが透過的コンテンツネゴシエーション自体に携わるよう設定されており、ネゴシエーションプロセスが正しく終了しなかったことを示します。",
+    "statusCodeId": 174,
+    "statusNameId": 175,
+    "statusTextId": 176
+  },
+  {
+    "status": "507 Insufficient Storage",
+    "statusCode": "507",
+    "statusName": "Insufficient Storage",
+    "statusText": "サーバーがリクエストを完了させるのに必要な表現を保存することができなかったため、メソッドがリソースに対して実行できなかったことを示します。",
+    "statusCodeId": 177,
+    "statusNameId": 178,
+    "statusTextId": 179
+  },
+  {
+    "status": "508 Loop Detected",
+    "statusCode": "508",
+    "statusName": "Loop Detected",
+    "statusText": "サーバーは、リクエストの処理中に無限ループを検出しました。",
+    "statusCodeId": 180,
+    "statusNameId": 181,
+    "statusTextId": 182
+  },
+  {
+    "status": "510 Not Extended",
+    "statusCode": "510",
+    "statusName": "Not Extended",
+    "statusText": "サーバーがリクエストを処理するために、リクエストをさらに拡張することが必要です。",
+    "statusCodeId": 183,
+    "statusNameId": 184,
+    "statusTextId": 185
+  },
+  {
+    "status": "511 Network Authentication Required",
+    "statusCode": "511",
+    "statusName": "Network Authentication Required",
+    "statusText": "クライアントがネットワークでアクセスするために認証が必要であることを示します。",
+    "statusCodeId": 186,
+    "statusNameId": 187,
+    "statusTextId": 188
+  }
+]

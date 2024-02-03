@@ -10,7 +10,7 @@
 import { defineComponent, reactive, inject } from 'vue';
 import axios from 'axios';
 export default defineComponent({
-  name: 'SampleView',
+  name: 'AboutView',
   setup() {
     const apiGet = async () => {
       const res = await axios.get('/api/hoge');
