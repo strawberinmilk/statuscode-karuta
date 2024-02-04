@@ -109,10 +109,8 @@
 
 <script lang="ts">
 /**
- * TODO:
  * customの実装 後で
  * お手付き処理
- * z-indexと色の管理
  */
 import { defineComponent, reactive } from 'vue'
 import { useRoute /*, useRouter */ } from 'vue-router'
@@ -512,19 +510,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
+@use '@/datas/constants';
+
 #root {
   position: relative;
 }
 
 #backgroundGrayOut {
   position: fixed;
-  top: 0px;
+  // top: 0px;
   left: 0px;
   height: 100vh;
   width: 100vw;
-  background-color: #500030;
+  background-color: constants.$backgroundGrayoutColor;
   opacity: 0.8;
-  z-index: 90;
+  z-index: constants.$viewHighZI;
 }
 
 #stanbyBox {
@@ -533,10 +533,10 @@ export default defineComponent({
   left: calc(50% - 150px);
   height: 100px;
   width: 300px;
-  background: linear-gradient(#002040, black, #002040);
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
   border-radius: 10px;
   opacity: 1;
-  z-index: 100;
+  z-index: constants.$viewHighZI;
   text-align: center;
   font-size: 2em;
 }
@@ -547,18 +547,18 @@ export default defineComponent({
   left: calc(50% - 40vw);
   height: 80vh;
   width: 80vw;
-  background: linear-gradient(#002040, black, #002040);
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
   border-radius: 30px;
   opacity: 1;
-  z-index: 100;
+  z-index: constants.$viewHighZI;
   padding: 10px;
 }
 
 #status {
   position: sticky;
   top: 0;
-  background: linear-gradient(#002040, black, #002040);
-  z-index: 120;
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
+  z-index: constants.$viewHighZI;
 }
 
 #resultInner {
@@ -576,7 +576,7 @@ export default defineComponent({
   height: 40px;
   width: 40px;
   border-radius: 0 20px 0 0;
-  background-color: rgb(198, 137, 204);
+  background-color: constants.$volumeColor;
   img {
     height: 40px;
     width: 40px;
