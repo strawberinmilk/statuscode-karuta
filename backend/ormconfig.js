@@ -1,5 +1,4 @@
 require('dotenv').config({ path: '../.env' });
-console.log(process.env.POSTGRES_USER);
 module.exports = {
   type: 'postgres',
   host: process.env.POSTGRES_HOST,

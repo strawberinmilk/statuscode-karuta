@@ -28,6 +28,11 @@ export class Score {
   score: number;
 
   @Column()
+  @IsString()
+  @IsNotEmpty()
+  gameMode: string;
+
+  @Column()
   @IsUUID()
   @IsNotEmpty()
   uuid: string;

@@ -68,9 +68,10 @@
         <br />
         <h3>スコアを登録する</h3>
         <div :id="$style.inputParent">
-          <el-input placeholder="名前を入力してください"></el-input>
+          <el-input v-model="state.lastResult.name" placeholder="名前を入力してください"></el-input>
         </div>
-        <el-button>送信</el-button>
+        <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
+        <br />
         <br />
         <el-row>
           <el-col :span="12"><el-button @click="nextGame()">もう一度遊ぶ</el-button></el-col>
@@ -109,12 +110,14 @@
  * ミュート機能
  * 名前、ミュートのcookie周り
  * お手付き処理
+ * z-indexと色の管理
  */
 import { defineComponent, reactive } from 'vue'
+import { useRoute /*, useRouter */ } from 'vue-router'
+import axios from 'axios'
 import Card from '@/components/Card.vue'
 import rawStatusCodeJson from '@/datas/statusCode.json'
-import { StatusCode, VoiceAudio } from '@/datas/dto.ts'
-import { useRoute /* useRouter */ } from 'vue-router'
+import type { StatusCode, VoiceAudio } from '@/datas/dto'
 
 const tmpStatusData = {
   status: '',
@@ -156,7 +159,7 @@ export default defineComponent({
     // ゲームモード変数
     const randomMap = mode !== 'hard' /* || mode === 'custom' && route */ ? true : false
     const numberToGive = (() => {
-      // return 12; // debug
+      // return 12 // debug
       switch (mode) {
         case 'easy':
           return 6
@@ -200,6 +203,8 @@ export default defineComponent({
         miss: number
         rank: string
         name: string
+        uuid: string
+        sended: boolean
       }
     } = reactive({
       cardList: [],
@@ -220,7 +225,9 @@ export default defineComponent({
         numberToGive,
         miss: 0,
         rank: '',
-        name: ''
+        name: '',
+        uuid: '',
+        sended: false
       }
     })
     // stateを弄ったらinitもなおすこと
@@ -246,7 +253,9 @@ export default defineComponent({
         numberToGive,
         miss: 0,
         rank: '問い合わせ中...',
-        name: '' // cookie
+        name: '', // cookie
+        sended: false,
+        uuid: ''
       }
       const rawStatusCodeList = (() => {
         if (mode !== 'easy') {
@@ -410,14 +419,40 @@ export default defineComponent({
     }
 
     // step cardAnswer→showResult処理
-    const showResult = () => {
+    const showResult = async () => {
       if (state.gameStep !== 'cardAnswer') {
         console.error('error gameStep:cardAnswer でないのに nextCard 関数が呼ばれました')
         return
       }
       debug && console.log('func: showResult')
       audioResetAndStop()
+
+      // スコア登録処理
+      try {
+        const res = await axios.post('/api/score', {
+          score: state.totalPoint,
+          gameMode: mode
+        })
+        state.lastResult.uuid = res.data.uuid
+        state.lastResult.rank = `${res.data.rank}位 / ${res.data.allCount}人中`
+      } catch {}
+
       state.gameStep = 'showResult'
+    }
+
+    const setName = async () => {
+      if (!state.lastResult.name || state.lastResult.sended) return
+      state.lastResult.sended = true
+
+      try {
+        await axios.put('/api/score', {
+          uuid: state.lastResult.uuid,
+          userName: state.lastResult.name
+        })
+        alert('登録しました')
+      } catch (e) {
+        alert(`${e.request.status} ${e.request.statusText}`)
+      }
     }
 
     const nextGame = () => {
@@ -437,6 +472,7 @@ export default defineComponent({
       nextCard,
       showResult,
       nextGame,
+      setName,
 
       audio,
       ticker

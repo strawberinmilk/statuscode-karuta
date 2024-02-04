@@ -11,6 +11,10 @@ export class BaseScoreDto {
   @IsInt()
   @IsNotEmpty()
   score: number;
+
+  @IsString()
+  @IsNotEmpty()
+  gameMode: string;
 }
 
 export class CreateScoreRequest extends BaseScoreDto {}
@@ -24,4 +28,20 @@ export class CreateScoreResponse {
   allCount: number;
   rank: number;
   uuid: string;
+}
+
+export class GetScoreRequest {
+  @IsString()
+  @IsNotEmpty()
+  gameMode: string;
+}
+
+export class UpdateScoreNameRequest {
+  @IsString()
+  @IsNotEmpty()
+  uuid: string;
+
+  @IsString()
+  @IsNotEmpty()
+  userName: string;
 }

@@ -1,20 +1,24 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { CreateScoreRequest, CreateScoreInsert } from 'src/db/score/score.dto';
-import { Score } from 'src/db/score/score.entity';
+import {
+  CreateScoreRequest,
+  CreateScoreInsert,
+  UpdateScoreNameRequest,
+} from 'src/db/score/score.dto';
 import { ScoreRepository } from 'src/db/score/score.repository';
 import * as crypto from 'crypto';
-import { Between, LessThan, MoreThan } from 'typeorm';
+import { Between, MoreThan } from 'typeorm';
 
 @Injectable()
 export class ScoreService {
-  constructor(
-    @InjectRepository(Score)
-    private readonly scoreRepository: ScoreRepository,
-  ) {}
+  constructor(private readonly scoreRepository: ScoreRepository) {}
+  // @InjectRepository(Score)
 
-  async get() {
-    return await this.scoreRepository.find();
+  async getAllByScore(gameMode: string) {
+    return await this.scoreRepository.find({
+      where: {
+        gameMode,
+      },
+    });
   }
 
   async insertScore(input: CreateScoreRequest) {
@@ -23,6 +27,7 @@ export class ScoreService {
     insertData.userId = input.userId;
     insertData.userName = input.userName;
     insertData.score = input.score;
+    insertData.gameMode = input.gameMode;
     insertData.uuid = uuid;
     await this.scoreRepository.insert(insertData);
 
@@ -31,6 +36,7 @@ export class ScoreService {
     const end = new Date();
     const allCount = await this.scoreRepository.count({
       where: {
+        gameMode: input.gameMode,
         createdAt: Between(start, end),
       },
     });
@@ -39,6 +45,7 @@ export class ScoreService {
       (await this.scoreRepository.count({
         where: {
           score: MoreThan(input.score),
+          gameMode: input.gameMode,
           createdAt: Between(start, end),
         },
       }));
@@ -48,4 +55,19 @@ export class ScoreService {
       uuid,
     };
   }
+
+  async setName(input: UpdateScoreNameRequest) {
+    const targetScore = await this.scoreRepository.findByUuid(input.uuid);
+    if (!targetScore || targetScore.userId) {
+      throw new BadRequestException('このスコアは編集できません');
+    }
+    targetScore.userId = -1;
+    targetScore.userName = input.userName;
+    await this.scoreRepository.save(targetScore);
+  }
+
+  // デバッグ用
+  // async delete(id: number) {
+  //   return await this.scoreRepository.delete(id);
+  // }
 }
