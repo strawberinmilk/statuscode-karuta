@@ -14,7 +14,7 @@ import {
   CreateScoreRequest,
   CreateScoreResponse,
   UpdateScoreNameRequest,
-} from 'src/db/score/score.dto';
+} from 'src/api/score/dto/score.dto';
 import { Score } from 'src/db/score/score.entity';
 
 @Controller('api/score')

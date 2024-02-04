@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
+import { InsertScoreDto } from 'src/db/score/score.dto';
 import {
   CreateScoreRequest,
-  CreateScoreInsert,
   UpdateScoreNameRequest,
-} from 'src/db/score/score.dto';
+} from 'src/api/score/dto/score.dto';
 import { ScoreRepository } from 'src/db/score/score.repository';
 import * as crypto from 'crypto';
 import { Between, MoreThan } from 'typeorm';
@@ -22,7 +22,7 @@ export class ScoreService {
   }
 
   async insertScore(input: CreateScoreRequest) {
-    const insertData = new CreateScoreInsert();
+    const insertData = new InsertScoreDto();
     const uuid = crypto.randomUUID();
     insertData.userId = input.userId;
     insertData.userName = input.userName;
