@@ -68,7 +68,7 @@
         <br />
         <h3>スコアを登録する</h3>
         <div :id="$style.inputParent">
-          <el-input v-model="state.lastResult.name" placeholder="名前を入力してください"></el-input>
+          <el-input v-model="unResetState.userName" placeholder="名前を入力してください"></el-input>
         </div>
         <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
         <br />
@@ -100,21 +100,22 @@
         />
       </el-col>
     </el-row>
+    <div :id="$style.volume" @click="audioVolume">
+      <img v-if="!unResetState.volume" src="/icon/volume_on.svg" />
+      <img v-if="unResetState.volume" src="/icon/volume_off.svg" />
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 /**
- * TODO:
- * customの実装
- * ミュート機能
- * 名前、ミュートのcookie周り
+ * customの実装 後で
  * お手付き処理
- * z-indexと色の管理
  */
 import { defineComponent, reactive } from 'vue'
 import { useRoute /*, useRouter */ } from 'vue-router'
 import axios from 'axios'
+import Cookies from 'universal-cookie'
 import Card from '@/components/Card.vue'
 import rawStatusCodeJson from '@/datas/statusCode.json'
 import type { StatusCode, VoiceAudio } from '@/datas/dto'
@@ -139,6 +140,11 @@ export default defineComponent({
 
     // const router = useRouter()
     const route = useRoute()
+    const cookies = new Cookies()
+
+    if (cookies.get('volume') === undefined) {
+      cookies.set('volume', 1)
+    }
 
     // TODO: customの実装
     const mode: 'easy' | 'normal' | 'hard' | 'lunatic' | 'custom' = (() => {
@@ -183,6 +189,14 @@ export default defineComponent({
     const pointRatio = 100 // ポイント倍率
     const debug = false // ログ制御
 
+    const unResetState: {
+      userName: string
+      volume: number
+    } = reactive({
+      userName: cookies.get('userName') || '',
+      volume: Number(cookies.get('volume'))
+    })
+
     const state: {
       cardList: { cardNum: number; enable: boolean; statusCodeData: StatusCode }[]
       inPlayCard: number[]
@@ -202,7 +216,6 @@ export default defineComponent({
         numberToGive: number
         miss: number
         rank: string
-        name: string
         uuid: string
         sended: boolean
       }
@@ -225,7 +238,6 @@ export default defineComponent({
         numberToGive,
         miss: 0,
         rank: '',
-        name: '',
         uuid: '',
         sended: false
       }
@@ -253,7 +265,6 @@ export default defineComponent({
         numberToGive,
         miss: 0,
         rank: '問い合わせ中...',
-        name: '', // cookie
         sended: false,
         uuid: ''
       }
@@ -284,6 +295,7 @@ export default defineComponent({
     // audio
     debug && console.log('audio init')
     const audio = new Audio()
+    audio.volume = unResetState.volume
     let voiceAudio: VoiceAudio[] = []
     const audioPlay = () => {
       if (voiceAudio.length === 0) return
@@ -304,6 +316,12 @@ export default defineComponent({
     }
     audio.onended = (event) => {
       audioPlay()
+    }
+    const audioVolume = () => {
+      const vol = unResetState.volume ? 0 : 1
+      unResetState.volume = vol
+      audio.volume = vol
+      cookies.set('volume', vol)
     }
 
     // ticker
@@ -440,21 +458,24 @@ export default defineComponent({
       state.gameStep = 'showResult'
     }
 
+    // showResult 画面において名前を登録する
     const setName = async () => {
-      if (!state.lastResult.name || state.lastResult.sended) return
+      if (!unResetState.userName || state.lastResult.sended) return
       state.lastResult.sended = true
+      cookies.set('userName', unResetState.userName)
 
       try {
         await axios.put('/api/score', {
           uuid: state.lastResult.uuid,
-          userName: state.lastResult.name
+          userName: unResetState.userName
         })
         alert('登録しました')
-      } catch (e) {
+      } catch (e: any) {
         alert(`${e.request.status} ${e.request.statusText}`)
       }
     }
 
+    // step showResult→standby処理
     const nextGame = () => {
       if (state.gameStep !== 'showResult') {
         console.error('error gameStep:showResult でないのに nextGame 関数が呼ばれました')
@@ -467,6 +488,8 @@ export default defineComponent({
 
     return {
       state,
+      unResetState,
+      audioVolume,
       gameStart,
       cardClick,
       nextCard,
@@ -487,19 +510,21 @@ export default defineComponent({
 </script>
 
 <style lang="scss" module>
+@use '@/datas/constants';
+
 #root {
   position: relative;
 }
 
 #backgroundGrayOut {
   position: fixed;
-  top: 0px;
+  // top: 0px;
   left: 0px;
   height: 100vh;
   width: 100vw;
-  background-color: #500030;
+  background-color: constants.$backgroundGrayoutColor;
   opacity: 0.8;
-  z-index: 90;
+  z-index: constants.$viewHighZI;
 }
 
 #stanbyBox {
@@ -508,10 +533,10 @@ export default defineComponent({
   left: calc(50% - 150px);
   height: 100px;
   width: 300px;
-  background: linear-gradient(#002040, black, #002040);
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
   border-radius: 10px;
   opacity: 1;
-  z-index: 100;
+  z-index: constants.$viewHighZI;
   text-align: center;
   font-size: 2em;
 }
@@ -522,18 +547,18 @@ export default defineComponent({
   left: calc(50% - 40vw);
   height: 80vh;
   width: 80vw;
-  background: linear-gradient(#002040, black, #002040);
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
   border-radius: 30px;
   opacity: 1;
-  z-index: 100;
+  z-index: constants.$viewHighZI;
   padding: 10px;
 }
 
 #status {
   position: sticky;
   top: 0;
-  background: linear-gradient(#002040, black, #002040);
-  z-index: 120;
+  background: linear-gradient(constants.$popupBlue, constants.$popupBlack, constants.$popupBlue);
+  z-index: constants.$viewHighZI;
 }
 
 #resultInner {
@@ -541,6 +566,20 @@ export default defineComponent({
   #inputParent {
     max-width: 500px;
     margin: 0 auto;
+  }
+}
+
+#volume {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  height: 40px;
+  width: 40px;
+  border-radius: 0 20px 0 0;
+  background-color: constants.$volumeColor;
+  img {
+    height: 40px;
+    width: 40px;
   }
 }
 </style>

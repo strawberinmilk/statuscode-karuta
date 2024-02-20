@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="scss" module>
+@use '@/datas/constants';
+
 #root {
   width: 100%;
   position: relative;
@@ -32,7 +34,7 @@ export default {
   height: 100%;
   width: 100%;
   padding: 10px;
-  z-index: 30;
+  z-index: constants.$componentHighZI;
 }
 
 #disableInner {
@@ -40,12 +42,12 @@ export default {
   width: 100%;
   background-color: gray;
   opacity: 0.8;
-  z-index: 30;
+  z-index: constants.$componentHighZI;
 }
 
 #cardText {
   position: absolute;
-  z-index: 20;
+  z-index: constants.$componentMiddleZI;
   width: 100%;
   font-size: 3.5em;
   top: 50%;
@@ -58,6 +60,6 @@ export default {
 #img {
   padding: 10px;
   width: 100%;
-  z-index: 10;
+  z-index: constants.$componentLowerZI;
 }
 </style>
