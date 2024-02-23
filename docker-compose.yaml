@@ -9,7 +9,7 @@ services:
     restart: always
     volumes:
       - ./backend:/app
-      - /app/node_modules
+      #- ./backend/node_modules:/app/node_modules
     tty: true
     depends_on:
       - postgres
@@ -23,6 +23,7 @@ services:
       POSTGRES_DB: ${POSTGRES_DB}
       POSTGRES_HOST: ${POSTGRES_HOST}
       NODE_ENV: development
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
 
   frontend:
     build:
@@ -33,7 +34,7 @@ services:
     restart: always
     volumes:
       - ./frontend:/app
-      - /app/node_modules
+      #- ./frontend/node_modules:/app/node_modules
     tty: true
     command:
       sh -c "yarn dev --host"
