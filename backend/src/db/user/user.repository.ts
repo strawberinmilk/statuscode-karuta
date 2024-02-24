@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { User } from './user.entity';
+import { UserRemovePassword } from './user.dto';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -8,11 +9,29 @@ export class UserRepository extends Repository<User> {
     super(User, dataSource.createEntityManager());
   }
 
-  async findByEmail(email: string): Promise<User> {
-    return await this.findOne({
+  async findByEmailAndPassSafePass(
+    email: string,
+    rawPassword: string,
+  ): Promise<UserRemovePassword> {
+    const user = await this.findOne({
+      where: {
+        email,
+        password: rawPassword, //TODO: ハッシュ化
+      },
+    });
+    if (!user) return null;
+    delete user.password;
+    return user;
+  }
+
+  async findByEmailSafePass(email: string): Promise<UserRemovePassword> {
+    const user = await this.findOne({
       where: {
         email,
       },
     });
+    if (!user) return null;
+    delete user.password;
+    return user;
   }
 }

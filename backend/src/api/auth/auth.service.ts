@@ -1,11 +1,7 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from 'src/db/user/user.repository';
-import {
-  AuthSignUpRequest,
-  PasswordOmitUser,
-  UserRemovePassword,
-} from './dto/auth.dto';
+import { AuthSignUpRequest, PasswordOmitUser } from './dto/auth.dto';
 import { userActive, userRoleId } from 'src/db/user/user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { JwtPayload, JwtToken } from './dto/auth.type';
@@ -16,21 +12,6 @@ export class AuthService {
     private readonly userRepository: UserRepository,
     private readonly jwtService: JwtService,
   ) {}
-  async validateMember(
-    email: string,
-    pass: string,
-  ): Promise<UserRemovePassword | null> {
-    const user = await this.userRepository.findOneBy({ email });
-
-    // TODO: ハッシュ化
-    if (user && user.password === pass) {
-      const { password, ...result } = user;
-      return result;
-    }
-
-    return null;
-  }
-
   /**
    * アカウント新規作成
    * @param input AuthSignUpRequest
@@ -61,10 +42,6 @@ export class AuthService {
     };
   }
   /*
-  async createNewUser() {
-    return true;
-  }
-
   async activeUser() {
     return true;
   }

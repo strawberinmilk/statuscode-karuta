@@ -8,7 +8,7 @@ import { ConfigService } from '@nestjs/config';
 import { JwtModule } from '@nestjs/jwt';
 import { AdminStrategy } from './guard/admin.strategy';
 import { MemberStrategy } from './guard/member.strategy';
-import { LocalStrategy } from './guard/local.strategy';
+import { LoginStrategy } from './guard/login.strategy';
 
 @Module({
   imports: [
@@ -16,7 +16,7 @@ import { LocalStrategy } from './guard/local.strategy';
     JwtModule.registerAsync({
       useFactory: async (configService: ConfigService) => ({
         secret: configService.get<string>('JWT_SECRET_KEY'),
-        signOptions: { expiresIn: '60s' },
+        signOptions: { expiresIn: '7d' },
       }),
       inject: [ConfigService],
     }),
@@ -27,7 +27,7 @@ import { LocalStrategy } from './guard/local.strategy';
     UserRepository,
     MemberStrategy,
     AdminStrategy,
-    LocalStrategy,
+    LoginStrategy,
   ],
 })
 export class AuthModule {}

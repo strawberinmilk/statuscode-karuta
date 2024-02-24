@@ -16,15 +16,6 @@ export class AuthSignUpRequest extends AuthBaseDto {
   name: string;
 }
 
-export class UserRemovePassword {
-  id: number;
-  email: string;
-  tmpEmail: string;
-  tmpToken: string;
-  name: string;
-  active: number;
-  role: number;
-}
 
 export class AuthLoginRequest extends AuthBaseDto {}
 

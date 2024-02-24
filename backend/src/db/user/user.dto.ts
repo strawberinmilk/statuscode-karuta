@@ -9,6 +9,17 @@ export enum userActive {
   DELETED = 0,
   ACTIVE = 1,
 }
+
+export class UserRemovePassword {
+  id: number;
+  email: string;
+  tmpEmail: string;
+  tmpToken: string;
+  name: string;
+  active: number;
+  role: number;
+}
+
 /* 
 export class BaseUserDto {
   email: string;

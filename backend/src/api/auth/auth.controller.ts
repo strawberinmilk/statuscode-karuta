@@ -5,6 +5,7 @@ import {
   UseGuards,
   ValidationPipe,
   Request,
+  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -16,7 +17,7 @@ import { JwtToken } from './dto/auth.type';
 
 import { AdminAuthGuard } from './guard/admin.guard';
 import { MemberAuthGuard } from './guard/member.guard';
-import { LocalAuthGuard } from './guard/local.guard';
+import { LoginAuthGuard } from './guard/login.guard';
 
 @Controller('api/auth')
 export class AuthController {
@@ -29,14 +30,26 @@ export class AuthController {
     return this.authService.signUp(input);
   }
 
-  // @UseGuards(MemberAuthGuard)
-  // @UseGuards(AdminAuthGuard)
-  @UseGuards(LocalAuthGuard)
   @Post('login')
+  @UseGuards(LoginAuthGuard)
   async login(
     @Body(new ValidationPipe()) input: AuthLoginRequest,
     @Request() req: { user: PasswordOmitUser },
   ): Promise<JwtToken> {
     return this.authService.login(req.user);
+  }
+
+  @Get('test/admin')
+  @UseGuards(AdminAuthGuard)
+  async adminTest(@Request() req: { user: PasswordOmitUser }) {
+    console.log(req.user);
+    return 'admin success';
+  }
+
+  @Get('test/member')
+  @UseGuards(MemberAuthGuard)
+  async partnerTest(@Request() req: { user: PasswordOmitUser }) {
+    console.log(req.user);
+    return 'member success';
   }
 }
