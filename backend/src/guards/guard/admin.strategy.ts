@@ -6,9 +6,9 @@ import {
 import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
-import { JwtPayload } from '../dto/auth.type';
 import { UserRepository } from 'src/db/user/user.repository';
 import { userRoleId } from 'src/db/user/user.dto';
+import { JwtPayload } from 'src/api/auth/dto/auth.type';
 
 @Injectable()
 export class AdminStrategy extends PassportStrategy(Strategy, 'admin') {

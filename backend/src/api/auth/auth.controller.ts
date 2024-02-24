@@ -14,10 +14,9 @@ import {
   PasswordOmitUser,
 } from './dto/auth.dto';
 import { JwtToken } from './dto/auth.type';
-
-import { AdminAuthGuard } from './guard/admin.guard';
-import { MemberAuthGuard } from './guard/member.guard';
-import { LoginAuthGuard } from './guard/login.guard';
+import { LoginAuthGuard } from 'src/guards/guard/login.guard';
+import { AdminAuthGuard } from 'src/guards/guard/admin.guard';
+import { MemberAuthGuard } from 'src/guards/guard/member.guard';
 
 @Controller('api/auth')
 export class AuthController {

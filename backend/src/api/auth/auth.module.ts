@@ -4,30 +4,11 @@ import { AuthController } from './auth.controller';
 import { UserRepository } from 'src/db/user/user.repository';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/db/user/user.entity';
-import { ConfigService } from '@nestjs/config';
-import { JwtModule } from '@nestjs/jwt';
-import { AdminStrategy } from './guard/admin.strategy';
-import { MemberStrategy } from './guard/member.strategy';
-import { LoginStrategy } from './guard/login.strategy';
+import { GuardsModule } from 'src/guards/guards.module';
 
 @Module({
-  imports: [
-    TypeOrmModule.forFeature([User]),
-    JwtModule.registerAsync({
-      useFactory: async (configService: ConfigService) => ({
-        secret: configService.get<string>('JWT_SECRET_KEY'),
-        signOptions: { expiresIn: '7d' },
-      }),
-      inject: [ConfigService],
-    }),
-  ],
+  imports: [TypeOrmModule.forFeature([User]), GuardsModule],
   controllers: [AuthController],
-  providers: [
-    AuthService,
-    UserRepository,
-    MemberStrategy,
-    AdminStrategy,
-    LoginStrategy,
-  ],
+  providers: [AuthService, UserRepository],
 })
 export class AuthModule {}
