@@ -5,7 +5,7 @@ import { UserRemovePassword } from 'src/db/user/user.dto';
 import { UserRepository } from 'src/db/user/user.repository';
 
 @Injectable()
-export class LoginStrategy extends PassportStrategy(Strategy, 'login') {
+export class LoginStrategy extends PassportStrategy(Strategy, 'adminAndUser') {
   constructor(private readonly userRepository: UserRepository) {
     super({ usernameField: 'email' });
   }

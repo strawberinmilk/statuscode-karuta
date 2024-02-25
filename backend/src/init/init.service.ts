@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { GUEST_USER } from 'src/constants/constatns';
 import { userActive, userRoleId } from 'src/db/user/user.dto';
 import { User } from 'src/db/user/user.entity';
 import { UserRepository } from 'src/db/user/user.repository';
@@ -21,17 +22,11 @@ export class InitService {
       });
     }
     // 初回guestを作成
-    const guestUser = await this.userRepository.findBy({
+    const guestUserExist = await this.userRepository.findBy({
       role: userRoleId.GUEST,
     });
-    if (!guestUser.length) {
-      const createGuestUser = await this.userRepository.save({
-        email: 'dummy',
-        password: 'dummy', // TODO: ハッシュ化
-        name: 'GUEST',
-        active: userActive.ACTIVE,
-        role: userRoleId.GUEST,
-      });
+    if (!guestUserExist.length) {
+      const createGuestUser = await this.userRepository.save(GUEST_USER);
       await this.userRepository
         .createQueryBuilder()
         .update(User)
