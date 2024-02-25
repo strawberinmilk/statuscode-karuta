@@ -5,7 +5,6 @@ import {
   UseGuards,
   ValidationPipe,
   Request,
-  Get,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {
@@ -15,8 +14,6 @@ import {
 } from './dto/auth.dto';
 import { JwtToken } from './dto/auth.type';
 import { LoginAuthGuard } from 'src/guards/guard/login.guard';
-import { AdminAuthGuard } from 'src/guards/guard/admin.guard';
-import { MemberAuthGuard } from 'src/guards/guard/member.guard';
 
 @Controller('api/auth')
 export class AuthController {
@@ -36,19 +33,5 @@ export class AuthController {
     @Request() req: { user: PasswordOmitUser },
   ): Promise<JwtToken> {
     return this.authService.login(req.user);
-  }
-
-  @Get('test/admin')
-  @UseGuards(AdminAuthGuard)
-  async adminTest(@Request() req: { user: PasswordOmitUser }) {
-    console.log(req.user);
-    return 'admin success';
-  }
-
-  @Get('test/member')
-  @UseGuards(MemberAuthGuard)
-  async partnerTest(@Request() req: { user: PasswordOmitUser }) {
-    console.log(req.user);
-    return 'member success';
   }
 }

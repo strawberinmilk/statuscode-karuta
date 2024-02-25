@@ -8,6 +8,7 @@ import {
   Param,
   ParseIntPipe,
   ValidationPipe,
+  UseGuards,
 } from '@nestjs/common';
 import { ScoreService } from './score.service';
 import {
@@ -16,12 +17,14 @@ import {
   UpdateScoreNameRequest,
 } from 'src/api/score/dto/score.dto';
 import { Score } from 'src/db/score/score.entity';
+import { AdminAuthGuard } from 'src/guards/guard/admin.guard';
 
 @Controller('api/score')
 export class ScoreController {
   constructor(private readonly scoreService: ScoreService) {}
 
   @Get(':gameMode')
+  @UseGuards(AdminAuthGuard)
   async getAllByScore(@Param('gameMode') gameMode: string): Promise<Score[]> {
     return await this.scoreService.getAllByScore(gameMode);
   }
