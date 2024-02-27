@@ -5,6 +5,7 @@ import { AuthSignUpRequest, PasswordOmitUser } from './dto/auth.dto';
 import { userActive, userRoleId } from 'src/db/user/user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { JwtPayload, JwtToken } from './dto/auth.type';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class AuthService {
@@ -22,7 +23,7 @@ export class AuthService {
     const user = await this.userRepository.save({
       email: input.email,
       tmpEmail: input.email,
-      password: input.password, // TODO: ハッシュ化
+      password: bcrypt.hashSync(input.password, 10),
       tmpToken,
       name: input.name,
       active: userActive.TEMPORARY,

@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { User } from './user.entity';
 import { UserRemovePassword } from './user.dto';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class UserRepository extends Repository<User> {
@@ -16,10 +17,10 @@ export class UserRepository extends Repository<User> {
     const user = await this.findOne({
       where: {
         email,
-        password: rawPassword, //TODO: ハッシュ化
       },
     });
     if (!user) return null;
+    if (!bcrypt.compareSync(rawPassword, user.password)) return null;
     delete user.password;
     return user;
   }

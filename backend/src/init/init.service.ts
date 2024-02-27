@@ -3,6 +3,7 @@ import { GUEST_USER } from 'src/constants/constatns';
 import { userActive, userRoleId } from 'src/db/user/user.dto';
 import { User } from 'src/db/user/user.entity';
 import { UserRepository } from 'src/db/user/user.repository';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable()
 export class InitService {
@@ -14,8 +15,8 @@ export class InitService {
     });
     if (!adminUser.length) {
       await this.userRepository.save({
-        email: 'hoge',
-        password: 'hoge',
+        email: 'initAdmin',
+        password: bcrypt.hashSync('initAdmin', 10), // TODO: 環境変数
         name: 'init admin',
         active: userActive.ACTIVE,
         role: userRoleId.ADMIN,
@@ -26,7 +27,9 @@ export class InitService {
       role: userRoleId.GUEST,
     });
     if (!guestUserExist.length) {
-      const createGuestUser = await this.userRepository.save(GUEST_USER);
+      const guestUser = GUEST_USER;
+      guestUser.password = bcrypt.hashSync(guestUser.password, 10);
+      const createGuestUser = await this.userRepository.save(guestUser);
       await this.userRepository
         .createQueryBuilder()
         .update(User)
