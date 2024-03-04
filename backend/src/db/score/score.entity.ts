@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   UpdateDateColumn,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { IsInt, IsNotEmpty, IsString, IsUUID } from 'class-validator';
 import { User } from '../user/user.entity';
@@ -15,8 +16,8 @@ export class Score {
   @IsInt()
   readonly id: number;
 
-  @Column()
   @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'userId' })
   @IsInt()
   userId: number;
 

@@ -13,7 +13,6 @@ import { Score } from '../score/score.entity';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
-  @OneToMany(() => Score, (score) => score.userId)
   @IsInt()
   readonly id: number;
 
@@ -51,4 +50,7 @@ export class User {
   @IsInt()
   @IsNotEmpty()
   role: number;
+
+  @OneToMany(() => Score, (score) => score.userId)
+  score?: Score[];
 }
