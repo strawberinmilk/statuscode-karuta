@@ -36,8 +36,9 @@ export class AuthService {
     return tmpToken;
   }
 
-  async login(input: PasswordOmitUser): Promise<JwtToken> {
-    const payload: JwtPayload = { sub: input.id, email: input.email };
+  async login(user: PasswordOmitUser): Promise<JwtToken> {
+    if ((user.role = userRoleId.GUEST)) return null;
+    const payload: JwtPayload = { sub: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
     };

@@ -1,11 +1,19 @@
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
-import { Column, Entity, PrimaryGeneratedColumn, Unique } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 import { userActive } from './user.dto';
+import { Score } from '../score/score.entity';
 
 @Unique(['email', 'tmpEmail', 'name'])
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
+  @OneToMany(() => Score, (score) => score.userId)
   @IsInt()
   readonly id: number;
 
