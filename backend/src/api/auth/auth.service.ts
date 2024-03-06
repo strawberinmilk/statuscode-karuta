@@ -37,7 +37,8 @@ export class AuthService {
   }
 
   async login(user: PasswordOmitUser): Promise<JwtToken> {
-    if ((user.role = userRoleId.GUEST)) return null;
+    if (user.role === userRoleId.GUEST)
+      throw new UnauthorizedException('ログインに失敗しました');
     const payload: JwtPayload = { sub: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
@@ -48,7 +49,6 @@ export class AuthService {
     return true;
   }
 
-
   async changeEmail() {
     return true;
   }
@@ -57,8 +57,8 @@ export class AuthService {
     return true;
   }
 
-  async whoAmI() {
-    return true;
+  async changeProfile() {
+    return true
   }
   */
 }

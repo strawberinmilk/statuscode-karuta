@@ -24,7 +24,7 @@ export class ScoreService {
   async insertScore(input: CreateScoreRequest) {
     const insertData = new InsertScoreDto();
     const uuid = crypto.randomUUID();
-    insertData.userId = input.userId;
+    insertData.userId = -1; // input.userId;
     insertData.userName = input.userName;
     insertData.score = input.score;
     insertData.gameMode = input.gameMode;
@@ -58,7 +58,7 @@ export class ScoreService {
 
   async setName(input: UpdateScoreNameRequest) {
     const targetScore = await this.scoreRepository.findByUuid(input.uuid);
-    if (!targetScore || targetScore.userId) {
+    if (!targetScore || targetScore.userId !== -1) {
       throw new BadRequestException('このスコアは編集できません');
     }
     targetScore.userId = -1;
