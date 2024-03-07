@@ -26,7 +26,9 @@ export class MemberStrategy extends PassportStrategy(Strategy, 'member') {
   async validate({ email }: JwtPayload) {
     const user = await this.userRepository.findByEmailSafePass(email);
     if (!user) throw new UnauthorizedException();
-    if (user.role !== userRoleId.MEMBER) throw new ForbiddenException();
+    if (user.role !== userRoleId.MEMBER && user.role !== userRoleId.ADMIN) {
+      throw new ForbiddenException();
+    }
     return user;
   }
 }

@@ -7,6 +7,7 @@ import {
 import { ScoreRepository } from 'src/db/score/score.repository';
 import * as crypto from 'crypto';
 import { Between, MoreThan } from 'typeorm';
+import { PasswordOmitUser } from '../auth/dto/auth.dto';
 
 @Injectable()
 export class ScoreService {
@@ -18,14 +19,15 @@ export class ScoreService {
       where: {
         gameMode,
       },
+      loadRelationIds: true,
     });
   }
 
-  async insertScore(input: CreateScoreRequest) {
+  async insertScore(input: CreateScoreRequest, user?: PasswordOmitUser) {
     const insertData = new InsertScoreDto();
     const uuid = crypto.randomUUID();
-    insertData.userId = -1; // input.userId;
-    insertData.userName = input.userName;
+    insertData.userId = user ? user.id : -1;
+    insertData.userName = user ? user.name : input.userName;
     insertData.score = input.score;
     insertData.gameMode = input.gameMode;
     insertData.uuid = uuid;
