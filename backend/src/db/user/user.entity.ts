@@ -1,10 +1,12 @@
 import { IsInt, IsNotEmpty, IsString } from 'class-validator';
 import {
   Column,
+  CreateDateColumn,
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
   Unique,
+  UpdateDateColumn,
 } from 'typeorm';
 import { UserActive } from './user.dto';
 import { Score } from '../score/score.entity';
@@ -53,4 +55,10 @@ export class User {
 
   @OneToMany(() => Score, (score) => score.userId)
   score?: Score[];
+
+  @CreateDateColumn()
+  readonly createdAt?: Date;
+
+  @UpdateDateColumn()
+  readonly updatedAt?: Date;
 }
