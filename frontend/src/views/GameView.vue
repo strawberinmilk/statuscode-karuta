@@ -66,11 +66,16 @@
           <el-col :span="6">{{ state.lastResult.rank }}</el-col>
         </el-row>
         <br />
-        <h3>スコアを登録する</h3>
-        <div :id="$style.inputParent">
-          <el-input v-model="unResetState.userName" placeholder="名前を入力してください"></el-input>
+        <div v-if="!unResetState.token">
+          <h3>スコアを登録する</h3>
+          <div :id="$style.inputParent">
+            <el-input
+              v-model="unResetState.userName"
+              placeholder="名前を入力してください"
+            ></el-input>
+          </div>
+          <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
         </div>
-        <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
         <br />
         <br />
         <el-row>
@@ -119,6 +124,7 @@ import Cookies from 'universal-cookie'
 import Card from '@/components/Card.vue'
 import rawStatusCodeJson from '@/datas/statusCode.json'
 import type { StatusCode, VoiceAudio } from '@/datas/dto'
+import * as notification from '../datas/notification'
 
 const tmpStatusData = {
   status: '',
@@ -192,9 +198,11 @@ export default defineComponent({
     const unResetState: {
       userName: string
       volume: number
+      token: string
     } = reactive({
       userName: cookies.get('userName') || '',
-      volume: Number(cookies.get('volume'))
+      volume: Number(cookies.get('volume')),
+      token: cookies.get('token')
     })
 
     const state: {
@@ -446,14 +454,31 @@ export default defineComponent({
       audioResetAndStop()
 
       // スコア登録処理
-      try {
-        const res = await axios.post('/api/score', {
-          score: state.totalPoint,
-          gameMode: mode
-        })
+      if (unResetState.token) {
+        const res = await axios.post(
+          '/api/score/member',
+          {
+            score: state.totalPoint,
+            gameMode: mode
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${unResetState.token}`
+            }
+          }
+        )
         state.lastResult.uuid = res.data.uuid
         state.lastResult.rank = `${res.data.rank}位 / ${res.data.allCount}人中`
-      } catch {}
+      } else {
+        try {
+          const res = await axios.post('/api/score/guest', {
+            score: state.totalPoint,
+            gameMode: mode
+          })
+          state.lastResult.uuid = res.data.uuid
+          state.lastResult.rank = `${res.data.rank}位 / ${res.data.allCount}人中`
+        } catch {}
+      }
 
       state.gameStep = 'showResult'
     }
@@ -469,9 +494,9 @@ export default defineComponent({
           uuid: state.lastResult.uuid,
           userName: unResetState.userName
         })
-        alert('登録しました')
+        notification.success('名前を登録しました', '')
       } catch (e: any) {
-        alert(`${e.request.status} ${e.request.statusText}`)
+        notification.error('名前登録に失敗しました', '')
       }
     }
 

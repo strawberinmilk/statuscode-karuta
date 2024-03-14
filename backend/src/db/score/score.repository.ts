@@ -13,6 +13,7 @@ export class ScoreRepository extends Repository<Score> {
       where: {
         uuid,
       },
+      loadRelationIds: true,
     });
   }
 }
