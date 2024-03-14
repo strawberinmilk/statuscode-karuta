@@ -20,19 +20,22 @@ export class AuthService {
    */
   async signUp(input: AuthSignUpRequest): Promise<string> {
     const tmpToken = uuidv4();
-    const user = await this.userRepository.save({
-      email: input.email,
-      tmpEmail: input.email,
-      password: bcrypt.hashSync(input.password, 10),
-      tmpToken,
-      name: input.name,
-      active: userActive.TEMPORARY,
-      role: userRoleId.MEMBER,
-    });
-    if (!user)
+    try {
+      await this.userRepository.save({
+        email: input.email,
+        tmpEmail: input.email,
+        password: bcrypt.hashSync(input.password, 10),
+        tmpToken,
+        name: input.name,
+        active: userActive.TEMPORARY,
+        role: userRoleId.MEMBER,
+      });
+    } catch {
       throw new UnauthorizedException(
         'メールアドレスまたは名前を他の方が使用されています',
       );
+    }
+
     return tmpToken;
   }
 
