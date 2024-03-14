@@ -5,6 +5,9 @@ import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ScoreModule } from './api/score/score.module';
+import { AuthModule } from './api/auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
+import { InitModule } from './init/init.module';
 
 @Module({
   imports: [
@@ -16,7 +19,10 @@ import { ScoreModule } from './api/score/score.module';
       exclude: ['/api*'],
     }),
     TypeOrmModule.forRoot({ ...require('../ormconfig') }),
+    ConfigModule.forRoot({ isGlobal: true }),
     ScoreModule,
+    AuthModule,
+    InitModule,
   ],
   controllers: [AppController],
   providers: [AppService],

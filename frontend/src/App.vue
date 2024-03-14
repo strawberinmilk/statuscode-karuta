@@ -13,6 +13,10 @@
             <router-link :class="$style.header_link" to="/about">about(credit)</router-link>
           </span>
         </template>
+
+        <template #extra>
+          <router-link :class="$style.header_link" to="/login">{{ state.loginStatus ? 'logout' : 'login' }}</router-link>
+        </template>
       </el-page-header>
     </div>
 
@@ -20,6 +24,26 @@
   </div>
 </template>
 
+<script lang="ts">
+import { defineComponent, reactive } from 'vue'
+import Cookies from 'universal-cookie'
+
+export default defineComponent({
+  name: 'LoginView',
+  setup() {
+    const cookies = new Cookies()
+    const state = reactive({
+      loginStatus: false
+    })
+
+    setInterval(() => {
+      state.loginStatus = !!cookies.get('token')
+    }, 100)
+
+    return { state }
+  }
+})
+</script>
 <style lang="scss" module>
 #root {
   position: relative;

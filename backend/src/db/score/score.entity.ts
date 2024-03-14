@@ -4,8 +4,11 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 import { IsInt, IsNotEmpty, IsString, IsUUID } from 'class-validator';
+import { User } from '../user/user.entity';
 
 @Entity()
 export class Score {
@@ -13,8 +16,8 @@ export class Score {
   @IsInt()
   readonly id: number;
 
-  // ユーザ機能実装するまではnullしか入らない
-  @Column({ nullable: true })
+  @ManyToOne(() => User, (user) => user.id)
+  @JoinColumn({ name: 'userId' })
   @IsInt()
   userId: number;
 

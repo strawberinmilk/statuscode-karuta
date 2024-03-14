@@ -18,6 +18,21 @@ const router = createRouter({
       path: '/game/:mode',
       name: 'game',
       component: () => import('../views/GameView.vue')
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import('../views/LoginView.vue')
+    },
+    {
+      path: '/signup',
+      name: 'signup',
+      component: () => import('../views/SignupView.vue')
+    },
+    {
+      path: '/active/:token',
+      name: 'active',
+      component: () => import('../views/ActiveView.vue')
     }
   ]
 })
