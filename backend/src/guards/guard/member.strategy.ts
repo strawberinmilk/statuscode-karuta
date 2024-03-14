@@ -7,7 +7,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ExtractJwt, Strategy } from 'passport-jwt';
 import { ConfigService } from '@nestjs/config';
 import { UserRepository } from 'src/db/user/user.repository';
-import { userRoleId } from 'src/db/user/user.dto';
+import { UserActive, UserRoleId } from 'src/db/user/user.dto';
 import { JwtPayload } from 'src/api/auth/dto/auth.type';
 
 @Injectable()
@@ -25,8 +25,9 @@ export class MemberStrategy extends PassportStrategy(Strategy, 'member') {
 
   async validate({ email }: JwtPayload) {
     const user = await this.userRepository.findByEmailSafePass(email);
-    if (!user) throw new UnauthorizedException();
-    if (user.role !== userRoleId.MEMBER && user.role !== userRoleId.ADMIN) {
+    if (!user || user.active !== UserActive.ACTIVE)
+      throw new UnauthorizedException();
+    if (user.role !== UserRoleId.MEMBER && user.role !== UserRoleId.ADMIN) {
       throw new ForbiddenException();
     }
     return user;

@@ -35,4 +35,15 @@ export class UserRepository extends Repository<User> {
     delete user.password;
     return user;
   }
+
+  async findByTokenSafePass(token: string): Promise<UserRemovePassword> {
+    const user = await this.findOne({
+      where: {
+        tmpToken: token,
+      },
+    });
+    if (!user) return null;
+    delete user.password;
+    return user;
+  }
 }

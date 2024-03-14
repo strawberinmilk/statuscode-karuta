@@ -28,6 +28,11 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: () => import('../views/SignupView.vue')
+    },
+    {
+      path: '/active/:token',
+      name: 'active',
+      component: () => import('../views/ActiveView.vue')
     }
   ]
 })

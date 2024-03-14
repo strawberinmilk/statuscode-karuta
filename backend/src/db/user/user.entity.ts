@@ -6,7 +6,7 @@ import {
   PrimaryGeneratedColumn,
   Unique,
 } from 'typeorm';
-import { userActive } from './user.dto';
+import { UserActive } from './user.dto';
 import { Score } from '../score/score.entity';
 
 @Unique(['email', 'tmpEmail', 'name'])
@@ -41,7 +41,7 @@ export class User {
   @IsNotEmpty()
   name: string;
 
-  @Column({ default: userActive.TEMPORARY })
+  @Column({ default: UserActive.TEMPORARY })
   @IsInt()
   @IsNotEmpty()
   active: number;

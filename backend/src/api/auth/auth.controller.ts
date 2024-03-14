@@ -11,9 +11,11 @@ import {
   AuthLoginRequest,
   AuthSignUpRequest,
   PasswordOmitUser,
+  ActiveRequest,
 } from './dto/auth.dto';
 import { JwtToken } from './dto/auth.type';
 import { LoginAuthGuard } from 'src/guards/guard/login.guard';
+import { UserRemovePassword } from 'src/db/user/user.dto';
 
 @Controller('api/auth')
 export class AuthController {
@@ -33,5 +35,12 @@ export class AuthController {
     @Request() req: { user: PasswordOmitUser },
   ): Promise<JwtToken> {
     return this.authService.login(req.user);
+  }
+
+  @Post('active')
+  async active(
+    @Body(new ValidationPipe()) input: ActiveRequest,
+  ): Promise<UserRemovePassword> {
+    return this.authService.active(input);
   }
 }

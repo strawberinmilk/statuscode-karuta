@@ -1,4 +1,4 @@
-import { userActive, userRoleId } from 'src/db/user/user.dto';
+import { UserActive, UserRoleId } from 'src/db/user/user.dto';
 import { User } from 'src/db/user/user.entity';
 
 export const GUEST_USER: User = {
@@ -8,6 +8,6 @@ export const GUEST_USER: User = {
   name: 'GUEST',
   tmpEmail: null,
   tmpToken: null,
-  active: userActive.ACTIVE,
-  role: userRoleId.GUEST,
+  active: UserActive.ACTIVE,
+  role: UserRoleId.GUEST,
 };

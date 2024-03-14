@@ -42,7 +42,7 @@ export default defineComponent({
       } catch (e) {
         if (axios.isAxiosError(e) && e.response && e.response.request.status === 401) {
           notification.error(
-            '401 Unauthorized:ログインに失敗しました',
+            'ログインに失敗しました',
             'メールアドレスまたはパスワードが正しくありません'
           )
         } else {

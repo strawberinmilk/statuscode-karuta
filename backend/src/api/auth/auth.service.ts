@@ -1,8 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { UserRepository } from 'src/db/user/user.repository';
-import { AuthSignUpRequest, PasswordOmitUser } from './dto/auth.dto';
-import { userActive, userRoleId } from 'src/db/user/user.dto';
+import {
+  ActiveRequest,
+  AuthSignUpRequest,
+  PasswordOmitUser,
+} from './dto/auth.dto';
+import { UserActive, UserRoleId } from 'src/db/user/user.dto';
 import { v4 as uuidv4 } from 'uuid';
 import { JwtPayload, JwtToken } from './dto/auth.type';
 import * as bcrypt from 'bcryptjs';
@@ -27,8 +31,8 @@ export class AuthService {
         password: bcrypt.hashSync(input.password, 10),
         tmpToken,
         name: input.name,
-        active: userActive.TEMPORARY,
-        role: userRoleId.MEMBER,
+        active: UserActive.TEMPORARY,
+        role: UserRoleId.MEMBER,
       });
     } catch {
       throw new UnauthorizedException(
@@ -40,18 +44,25 @@ export class AuthService {
   }
 
   async login(user: PasswordOmitUser): Promise<JwtToken> {
-    if (user.role === userRoleId.GUEST)
+    if (user.role === UserRoleId.GUEST || user.active !== UserActive.ACTIVE)
       throw new UnauthorizedException('ログインに失敗しました');
     const payload: JwtPayload = { sub: user.id, email: user.email };
     return {
       access_token: this.jwtService.sign(payload),
     };
   }
-  /*
-  async activeUser() {
-    return true;
-  }
 
+  async active(input: ActiveRequest) {
+    const user = await this.userRepository.findByTokenSafePass(input.token);
+    if (!user) throw new UnauthorizedException('ユーザが見つかりません');
+    user.email = user.tmpEmail;
+    user.tmpEmail = null;
+    user.tmpToken = null;
+    user.active = UserActive.ACTIVE;
+    await this.userRepository.save(user);
+    return user;
+  }
+  /*
   async changeEmail() {
     return true;
   }

@@ -1,10 +1,10 @@
-export enum userRoleId {
+export enum UserRoleId {
   ADMIN = 0,
   GUEST = 1,
   MEMBER = 2,
 }
 
-export enum userActive {
+export enum UserActive {
   TEMPORARY = -1,
   DELETED = 0,
   ACTIVE = 1,

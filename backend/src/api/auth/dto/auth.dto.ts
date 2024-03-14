@@ -16,7 +16,12 @@ export class AuthSignUpRequest extends AuthBaseDto {
   name: string;
 }
 
-
 export class AuthLoginRequest extends AuthBaseDto {}
+
+export class ActiveRequest {
+  @IsString()
+  @IsNotEmpty()
+  token: string;
+}
 
 export type PasswordOmitUser = Omit<User, 'hashedPassword'>;
