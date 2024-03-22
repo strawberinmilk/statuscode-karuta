@@ -33,6 +33,11 @@ const router = createRouter({
       path: '/active/:token',
       name: 'active',
       component: () => import('../views/ActiveView.vue')
+    },
+    {
+      path: '/lobby',
+      name: 'lobby',
+      component: () => import('../views/LobbyView.vue')
     }
   ]
 })
