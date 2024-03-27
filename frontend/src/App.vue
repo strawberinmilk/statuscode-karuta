@@ -9,6 +9,7 @@
         <template #content>
           <span>
             <router-link :class="$style.header_link" to="/lobby">Lobby</router-link>
+            <router-link :class="$style.header_link" to="/ranking">Ranking</router-link>
             <router-link :class="$style.header_link" to="/about">About</router-link>
           </span>
         </template>

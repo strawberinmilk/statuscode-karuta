@@ -1,8 +1,8 @@
 import { IsInt, IsNotEmpty, IsString, ValidateIf } from 'class-validator';
+import { User } from '../user/user.entity';
 export class BaseScoreDto {
-  @IsInt()
   @ValidateIf((o, value) => value != null)
-  userId?: number;
+  user?: User;
 
   @IsString()
   @ValidateIf((o, value) => value != null)

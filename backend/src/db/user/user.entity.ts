@@ -53,7 +53,7 @@ export class User {
   @IsNotEmpty()
   role: number;
 
-  @OneToMany(() => Score, (score) => score.userId)
+  @OneToMany(() => Score, (score) => score.user)
   score?: Score[];
 
   @CreateDateColumn()

@@ -130,7 +130,7 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 import Card from '@/components/Card.vue'
 import rawStatusCodeJson from '@/datas/statusCode.json'
-import type { StatusCode, VoiceAudio } from '@/datas/dto'
+import type { GameMode, StatusCode, VoiceAudio } from '@/datas/dto'
 import * as notification from '../datas/notification'
 
 const tmpStatusData = {
@@ -160,7 +160,7 @@ export default defineComponent({
     }
 
     // TODO: customの実装
-    const mode: 'easy' | 'normal' | 'medium' | 'hard' | 'lunatic' | 'custom' = (() => {
+    const mode: GameMode = (() => {
       switch (route.params.mode) {
         case 'easy':
           return 'easy'
@@ -173,7 +173,8 @@ export default defineComponent({
         case 'lunatic':
           return 'lunatic'
         default:
-          return 'custom'
+          return 'easy'
+        // return 'custom'
       }
     })()
 

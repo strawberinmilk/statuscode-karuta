@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsDateString, IsNotEmpty, IsString } from 'class-validator';
 import { BaseScoreDto } from 'src/db/score/score.dto';
 
 export class CreateScoreRequest extends BaseScoreDto {}
@@ -23,4 +23,28 @@ export class UpdateScoreNameRequest {
   @IsString()
   @IsNotEmpty()
   userName: string;
+}
+
+export class GetScoreLogRequest {
+  @IsString()
+  @IsNotEmpty()
+  gameMode: string;
+
+  @IsDateString()
+  @IsNotEmpty()
+  from: Date;
+
+  @IsDateString()
+  @IsNotEmpty()
+  to: Date;
+
+  @IsString()
+  @IsNotEmpty()
+  order: string;
+}
+
+export class GetRankingRequest {
+  @IsString()
+  @IsNotEmpty()
+  gameMode: string;
 }
