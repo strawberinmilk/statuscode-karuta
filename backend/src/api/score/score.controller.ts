@@ -13,6 +13,8 @@ import { ScoreService } from './score.service';
 import {
   CreateScoreRequest,
   CreateScoreResponse,
+  GetRankingRequest,
+  GetScoreLogRequest,
   UpdateScoreNameRequest,
 } from 'src/api/score/dto/score.dto';
 import { Score } from 'src/db/score/score.entity';
@@ -51,6 +53,22 @@ export class ScoreController {
     @Body(new ValidationPipe()) input: UpdateScoreNameRequest,
   ): Promise<void> {
     return await this.scoreService.setName(input);
+  }
+
+  @Post('log')
+  @UseGuards(MemberAuthGuard)
+  async log(
+    @Body(new ValidationPipe()) input: GetScoreLogRequest,
+    @Request() req: { user: PasswordOmitUser },
+  ): Promise<Score[]> {
+    return await this.scoreService.getLog(input, req.user);
+  }
+
+  @Post('ranking')
+  async ranking(
+    @Body(new ValidationPipe()) input: GetRankingRequest,
+  ): Promise<Score[]> {
+    return await this.scoreService.ranking(input);
   }
 
   // デバッグ用

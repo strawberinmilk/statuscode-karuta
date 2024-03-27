@@ -66,11 +66,16 @@
           <el-col :span="6">{{ state.lastResult.rank }}</el-col>
         </el-row>
         <br />
-        <h3>スコアを登録する</h3>
-        <div :id="$style.inputParent">
-          <el-input v-model="unResetState.userName" placeholder="名前を入力してください"></el-input>
+        <div v-if="!unResetState.token">
+          <h3>スコアを登録する</h3>
+          <div :id="$style.inputParent">
+            <el-input
+              v-model="unResetState.userName"
+              placeholder="名前を入力してください"
+            ></el-input>
+          </div>
+          <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
         </div>
-        <el-button @click="setName" :disabled="state.lastResult.sended">登録</el-button>
         <br />
         <br />
         <el-row>
@@ -85,7 +90,14 @@
     <el-row :id="$style.status" v-if="state.gameStep === 'cardGet'">
       <el-col :span="15">&nbsp;{{ state.currentStatusCode.statusText }} </el-col>
       <el-col :span="1"></el-col>
-      <el-col :span="4">残り時間:&nbsp;{{ state.rimitTime.toFixed(1) }}</el-col>
+      <el-col :span="4">
+        <Transition name="miss">
+          <div v-if="state.miss" style="position: absolute">
+            <span :id="$style.miss">-{{ state.missDecrement }}秒</span>
+          </div>
+        </Transition>
+        残り時間:&nbsp;{{ state.rimitTime.toFixed(1) }}
+      </el-col>
       <el-col :span="4">スコア:&nbsp;{{ state.totalPoint }}</el-col>
     </el-row>
 
@@ -118,7 +130,8 @@ import axios from 'axios'
 import Cookies from 'universal-cookie'
 import Card from '@/components/Card.vue'
 import rawStatusCodeJson from '@/datas/statusCode.json'
-import type { StatusCode, VoiceAudio } from '@/datas/dto'
+import type { GameMode, StatusCode, VoiceAudio } from '@/datas/dto'
+import * as notification from '../datas/notification'
 
 const tmpStatusData = {
   status: '',
@@ -147,18 +160,21 @@ export default defineComponent({
     }
 
     // TODO: customの実装
-    const mode: 'easy' | 'normal' | 'hard' | 'lunatic' | 'custom' = (() => {
+    const mode: GameMode = (() => {
       switch (route.params.mode) {
         case 'easy':
           return 'easy'
         case 'normal':
           return 'normal'
+        case 'medium':
+          return 'medium'
         case 'hard':
           return 'hard'
         case 'lunatic':
           return 'lunatic'
         default:
-          return 'custom'
+          return 'easy'
+        // return 'custom'
       }
     })()
 
@@ -170,6 +186,8 @@ export default defineComponent({
         case 'easy':
           return 6
         case 'normal':
+          return 12
+        case 'medium':
           return 12
         case 'hard':
           return 63
@@ -188,13 +206,16 @@ export default defineComponent({
     const rimitTime = 30 // 回答制限時間(s)
     const pointRatio = 100 // ポイント倍率
     const debug = false // ログ制御
+    const missDecrement = 5
 
     const unResetState: {
       userName: string
       volume: number
+      token: string
     } = reactive({
       userName: cookies.get('userName') || '',
-      volume: Number(cookies.get('volume'))
+      volume: Number(cookies.get('volume')),
+      token: cookies.get('token')
     })
 
     const state: {
@@ -205,6 +226,8 @@ export default defineComponent({
       currentStatusCode: StatusCode
       rimitTime: number
       totalPoint: number
+      miss: boolean
+      missDecrement: number
       answerResult: {
         statusCode: StatusCode
         rimitTime: string
@@ -227,6 +250,8 @@ export default defineComponent({
       currentStatusCode: { ...tmpStatusData },
       rimitTime: 0,
       totalPoint: 0,
+      miss: false,
+      missDecrement,
       answerResult: {
         statusCode: { ...tmpStatusData },
         rimitTime: '',
@@ -254,6 +279,8 @@ export default defineComponent({
       state.currentStatusCode = { ...tmpStatusData }
       state.rimitTime = 0
       state.totalPoint = 0
+      state.miss = false
+      state.missDecrement = missDecrement
       state.answerResult = {
         statusCode: { ...tmpStatusData },
         rimitTime: '',
@@ -269,12 +296,31 @@ export default defineComponent({
         uuid: ''
       }
       const rawStatusCodeList = (() => {
-        if (mode !== 'easy') {
-          return statusCodeJson
-        } else {
+        if (mode === 'easy') {
           return statusCodeJson.filter((statusCode) => {
             return ['200', '400', '403', '404', '500', '502'].indexOf(statusCode.statusCode) !== -1
           })
+        } else if (mode === 'normal') {
+          return statusCodeJson.filter((statusCode) => {
+            return (
+              [
+                '200',
+                '201',
+                '301',
+                '302',
+                '400',
+                '401',
+                '403',
+                '404',
+                '418',
+                '500',
+                '502',
+                '504'
+              ].indexOf(statusCode.statusCode) !== -1
+            )
+          })
+        } else {
+          return statusCodeJson
         }
       })()
       for (let i = 0; i < numberToGive; i++) {
@@ -296,6 +342,9 @@ export default defineComponent({
     debug && console.log('audio init')
     const audio = new Audio()
     audio.volume = unResetState.volume
+    const effectAudio = new Audio()
+    effectAudio.volume = unResetState.volume
+
     let voiceAudio: VoiceAudio[] = []
     const audioPlay = () => {
       if (voiceAudio.length === 0) return
@@ -321,6 +370,7 @@ export default defineComponent({
       const vol = unResetState.volume ? 0 : 1
       unResetState.volume = vol
       audio.volume = vol
+      effectAudio.volume = vol
       cookies.set('volume', vol)
     }
 
@@ -378,12 +428,20 @@ export default defineComponent({
       debug && console.log(`func: cardClick click: ${cardNum}`)
       if (state.currentCard === cardNum) {
         // 正解カードクリック
+        effectAudio.src = '/ok.mp3'
+        effectAudio.play()
         answer()
       } else if (!state.cardList[cardNum].enable) {
         // disableカード誤クリック 処理なし
       } else {
         // TODO: お手付き処理
-        console.warn('お手付き')
+        state.rimitTime -= state.missDecrement
+        state.miss = true
+        effectAudio.src = '/ng.mp3'
+        effectAudio.play()
+        setTimeout(() => {
+          state.miss = false
+        }, 100)
       }
     }
 
@@ -446,14 +504,31 @@ export default defineComponent({
       audioResetAndStop()
 
       // スコア登録処理
-      try {
-        const res = await axios.post('/api/score', {
-          score: state.totalPoint,
-          gameMode: mode
-        })
+      if (unResetState.token) {
+        const res = await axios.post(
+          '/api/score/member',
+          {
+            score: state.totalPoint,
+            gameMode: mode
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${unResetState.token}`
+            }
+          }
+        )
         state.lastResult.uuid = res.data.uuid
         state.lastResult.rank = `${res.data.rank}位 / ${res.data.allCount}人中`
-      } catch {}
+      } else {
+        try {
+          const res = await axios.post('/api/score/guest', {
+            score: state.totalPoint,
+            gameMode: mode
+          })
+          state.lastResult.uuid = res.data.uuid
+          state.lastResult.rank = `${res.data.rank}位 / ${res.data.allCount}人中`
+        } catch {}
+      }
 
       state.gameStep = 'showResult'
     }
@@ -469,9 +544,9 @@ export default defineComponent({
           uuid: state.lastResult.uuid,
           userName: unResetState.userName
         })
-        alert('登録しました')
+        notification.success('名前を登録しました', '')
       } catch (e: any) {
-        alert(`${e.request.status} ${e.request.statusText}`)
+        notification.error('名前登録に失敗しました', '')
       }
     }
 
@@ -581,5 +656,20 @@ export default defineComponent({
     height: 40px;
     width: 40px;
   }
+}
+
+#miss {
+  color: red;
+  font-size: 2em;
+}
+</style>
+
+<style>
+.miss-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.miss-leave-to {
+  opacity: 0;
 }
 </style>

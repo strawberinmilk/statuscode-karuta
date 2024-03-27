@@ -8,14 +8,16 @@
 
         <template #content>
           <span>
-            <router-link :class="$style.header_link" to="/game">game</router-link>
-            <router-link :class="$style.header_link" to="/about">about(result)</router-link>
-            <router-link :class="$style.header_link" to="/about">about(credit)</router-link>
+            <router-link :class="$style.header_link" to="/lobby">Lobby</router-link>
+            <router-link :class="$style.header_link" to="/ranking">Ranking</router-link>
+            <router-link :class="$style.header_link" to="/about">About</router-link>
           </span>
         </template>
 
         <template #extra>
-          <router-link :class="$style.header_link" to="/login">{{ state.loginStatus ? 'logout' : 'login' }}</router-link>
+          <router-link :class="$style.header_link" to="/login">{{
+            state.loginStatus ? 'logout' : 'login'
+          }}</router-link>
         </template>
       </el-page-header>
     </div>
